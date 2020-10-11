@@ -1,4 +1,4 @@
-package payroll;
+package com.flowsigma.ewocs.fhir.exception;
 
 class EmployeeNotFoundException extends RuntimeException {
 

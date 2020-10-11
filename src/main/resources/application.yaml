@@ -1,0 +1,8 @@
+spring:
+  fhir:
+    host: "http://hackathon.siim.org/fhir/"
+    apiKey: "dd6f7f1d-1586-438f-8d35-ff589a12f4df"
+  jackson:
+    serialization:
+      indent-output: true
+

@@ -1,4 +1,4 @@
-package payroll;
+package com.flowsigma.ewocs.fhir.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

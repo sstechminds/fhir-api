@@ -1,11 +1,11 @@
-package com.flowsigma.ewocs.fhir;
+package com.flowsigma.ewocs.fhir.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-class Patient {
+public class Patient {
 	private Long id;
 	private String name;
 	private String role;
