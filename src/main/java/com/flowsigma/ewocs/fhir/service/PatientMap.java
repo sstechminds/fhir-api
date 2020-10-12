@@ -2,6 +2,7 @@ package com.flowsigma.ewocs.fhir.service;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
+import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ import org.springframework.http.HttpEntity;
 
 public class PatientMap {
 
-  private List<Map<String, String>> patients;
+  private List<PatientRecord> patients;
   private FhirContext ctx = FhirContext.forDstu3();
   private IParser parser;
 
@@ -30,22 +31,24 @@ public class PatientMap {
     }
   }
 
-  public List<Map<String, String>> getPatientRecords() {
+  public List<PatientRecord> getPatientRecords() {
     return patients;
   }
 
   private void addPatients(JSONObject resource) {
-    Map<String, String> patientRecord = new HashMap<>();
+    PatientRecord patientRecord = new PatientRecord();
+
     Patient patientRes = parser.parseResource(Patient.class, resource.toString());
 
-    patientRecord.put("id", patientRes.getId().substring(8, 22));
-    patientRecord.put("name",
-        patientRes.getName().get(0).getGivenAsSingleString() + " " + patientRes.getName().get(0).getFamily());
-//  String last = patientRes.getName().get(0).getFamily();
-//  String first = patientRes.getName().get(0).getGiven().get(0); //patientRes.getName().get(0).getGivenAsSingleString()
-//  String PID = patientRes.getIdentifier().get(0).getValue();
-    patientRecord.put("gender", patientRes.getGender().getDisplay());
-    patientRecord.put("birthDate", patientRes.getBirthDate().toString().substring(0, 10));
+    patientRecord.setId(patientRes.getId().substring(8, 22));
+    patientRecord.setName(patientRes.getName().get(0).getGivenAsSingleString() + " " + patientRes.getName().get(0).getFamily());
+    patientRecord.setGender(patientRes.getGender().getDisplay());
+    patientRecord.setBirthDate(patientRes.getBirthDate().toString().substring(0, 10));
+
+//      String last = patientRes.getName().get(0).getFamily();
+//      String first = patientRes.getName().get(0).getGiven().get(0); //patientRes.getName().get(0).getGivenAsSingleString()
+//      String PID = patientRes.getIdentifier().get(0).getValue();
+
     this.patients.add(patientRecord);
   }
 

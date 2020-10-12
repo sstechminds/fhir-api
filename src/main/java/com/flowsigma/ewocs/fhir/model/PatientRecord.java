@@ -5,8 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Patient {
-	private Long id;
+public class PatientRecord {
+	private String id;
 	private String name;
-	private String role;
+	private String gender;
+	private String birthDate;
 }

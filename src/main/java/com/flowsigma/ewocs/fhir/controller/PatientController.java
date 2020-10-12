@@ -1,12 +1,12 @@
 package com.flowsigma.ewocs.fhir.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flowsigma.ewocs.fhir.model.Patient;
+import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.hl7.fhir.dstu3.model.Patient;
 import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,8 +30,8 @@ class PatientController {
 
 	@GetMapping(value = "/patient", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<Map<String, String>>> getPatients() {
-		List<Map<String, String>> patients = fhirPatientService.getPatients("Patient");
+	public ResponseEntity<List<PatientRecord>> getPatients() {
+		List<PatientRecord> patients = fhirPatientService.getPatients("Patient");
 
 		return new ResponseEntity<>(patients, HttpStatus.OK);
 	}

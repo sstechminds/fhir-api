@@ -1,6 +1,7 @@
 package com.flowsigma.ewocs.fhir.service;
 
 import ca.uhn.fhir.context.FhirContext;
+import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.repository.FhirRepository;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class FhirPatientService {
 //    System.out.print("diagnosticReport2: \n" + diagnosticReport2);
   }
 
-  public List<Map<String, String>> getPatients(String path) {
+  public List<PatientRecord> getPatients(String path) {
     PatientMap patientMap = new PatientMap(fhirRepository.getResponse(path));
     return patientMap.getPatientRecords();
   }

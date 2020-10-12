@@ -3,6 +3,7 @@ package com.flowsigma.ewocs.fhir.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -49,13 +50,13 @@ class PatientControllerRestTemplateTest {
 		headers.set("Accept", "application/json");
 		HttpEntity requestEntity = new HttpEntity<>(null, headers);
 
-		ResponseEntity<List<Map<String, String>>> response =
-				restTemplate.exchange(uri, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<Map<String, String>>>() {});
+		ResponseEntity<List<PatientRecord>> response =
+				restTemplate.exchange(uri, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<PatientRecord>>() {});
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
-		List<Map<String, String>> body = response.getBody();
-//		System.out.println("Body" + body);
+		List<PatientRecord> body = response.getBody();
+		System.out.println("Body" + body.toString());
 //TODO:		JSONAssert.assertEquals(expected, response.getBody(), false);
 //		verify(mockRepository, times(1)).findById(1L);
 	}
