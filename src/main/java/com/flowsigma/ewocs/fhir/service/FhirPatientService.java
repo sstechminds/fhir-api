@@ -4,7 +4,6 @@ import ca.uhn.fhir.context.FhirContext;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.repository.FhirRepository;
 import java.util.List;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.DiagnosticReport;
@@ -56,7 +55,7 @@ public class FhirPatientService {
     return patientMap.getPatientRecords();
   }
 
-  public JSONArray getPatientCondition(String path) {
+  public String getPatientCondition(String path) {
     JSONArray array = new JSONArray();
 
     PatientConditionMap patientMap = new PatientConditionMap(fhirRepository.getResponse(path));
@@ -66,7 +65,7 @@ public class FhirPatientService {
           .map(condition -> ourCtx.newJsonParser().encodeResourceToString(condition))
           .forEach(s -> array.put(new JSONObject(s)));
     }
-    return array;
+    return array.toString();
   }
 
   public String getPatientDiagnosticReport(String path) {
@@ -75,7 +74,7 @@ public class FhirPatientService {
     return diagnosticReport == null ? "{}" : ourCtx.newJsonParser().encodeResourceToString(diagnosticReport);
   }
 
-  public JSONArray getPatientDiagnosticReports(String path) {
+  public String getPatientDiagnosticReports(String path) {
     JSONArray array = new JSONArray();
 
     DiagnosticReportsMap patientMap = new DiagnosticReportsMap(fhirRepository.getResponse(path));
@@ -85,7 +84,7 @@ public class FhirPatientService {
           .map(diagnosticReport -> ourCtx.newJsonParser().encodeResourceToString(diagnosticReport))
           .forEach(s -> array.put(new JSONObject(s)));
     }
-    return array;
+    return array.toString();
   }
 
   public String getImagingStudy(String path) {

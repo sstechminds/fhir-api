@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.dstu3.model.Patient;
-import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ class PatientController {
 	private FhirPatientService fhirPatientService;
 	private ObjectMapper om;
 
-	PatientController(FhirPatientService fhirPatientService) {
+	public PatientController(FhirPatientService fhirPatientService) {
 		this.fhirPatientService = fhirPatientService;
 		this.om = new ObjectMapper();
 	}
@@ -37,20 +36,12 @@ class PatientController {
 		return new ResponseEntity<>(serialize(patients), HttpStatus.OK);
 	}
 
-	private String serialize(List<PatientRecord> patients) {
-		try {
-			return om.writeValueAsString(patients);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	@GetMapping(value = "/patient/{patientId}/condition", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> getCondition(@PathVariable String patientId) {
-		JSONArray conditions = fhirPatientService.getPatientCondition("Condition?patient=" + patientId);
+		String conditions = fhirPatientService.getPatientCondition("Condition?patient=" + patientId);
 
-		return new ResponseEntity<>(conditions.toString(), HttpStatus.OK);
+		return new ResponseEntity<>(conditions, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/imagingstudy/{studyId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -64,9 +55,9 @@ class PatientController {
 	@GetMapping(value = "/patient/{patientId}/diagnosticreport", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> getPatientReports(@PathVariable String patientId) {
-		JSONArray drs = fhirPatientService.getPatientDiagnosticReports("DiagnosticReport?patient=" + patientId);
+		String drs = fhirPatientService.getPatientDiagnosticReports("DiagnosticReport?patient=" + patientId);
 
-		return new ResponseEntity<>(drs.toString(), HttpStatus.OK);
+		return new ResponseEntity<>(drs, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/diagnosticreport/{reportId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -81,5 +72,13 @@ class PatientController {
 	@ResponseBody
 	public Collection<Patient> getPatientReport(@PathVariable String patientId, @PathVariable String reportId) {
 		throw new UnsupportedOperationException("Looks like this endpoint is unavailable onn SIIM FHIR endpoints.");
+	}
+
+	private String serialize(List<PatientRecord> patients) {
+		try {
+			return om.writeValueAsString(patients);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
