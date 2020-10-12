@@ -31,6 +31,7 @@ class PatientController {
 	@GetMapping(value = "/patient", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> getPatients() {
+		log.info("getPatients");
 		List<PatientRecord> patients = fhirPatientService.getPatients("Patient");
 
 		return new ResponseEntity<>(serialize(patients), HttpStatus.OK);

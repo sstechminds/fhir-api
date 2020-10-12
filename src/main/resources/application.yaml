@@ -6,3 +6,12 @@ spring:
     serialization:
       indent-output: true
 
+logging:
+  file:
+    name: logs/hir-api.log
+  level:
+    org.springframework.web: WARN
+    com.flowsigma: DEBUG
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
