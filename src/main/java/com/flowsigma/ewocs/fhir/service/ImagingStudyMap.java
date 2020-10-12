@@ -3,7 +3,6 @@ package com.flowsigma.ewocs.fhir.service;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 import org.hl7.fhir.dstu3.model.Bundle;
-import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.ImagingStudy;
 import org.json.JSONException;
 import org.json.JSONObject;

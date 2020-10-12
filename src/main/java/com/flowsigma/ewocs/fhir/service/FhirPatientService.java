@@ -1,14 +1,13 @@
 package com.flowsigma.ewocs.fhir.service;
 
 import ca.uhn.fhir.context.FhirContext;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.DiagnosticReport;
 import org.hl7.fhir.dstu3.model.ImagingStudy;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -76,7 +75,7 @@ public class FhirPatientService {
     if(conditions != null) {
       conditions.stream()
           .map(condition -> ourCtx.newJsonParser().encodeResourceToString(condition))
-          .forEach(s -> array.put(s));
+          .forEach(s -> array.put(new JSONObject(s)));
     }
     return array;
   }
@@ -84,22 +83,26 @@ public class FhirPatientService {
   public String getPatientDiagnosticReport(String path) {
     DiagnosticReportMap patientMap = new DiagnosticReportMap(getResponse(path));
     DiagnosticReport diagnosticReport = patientMap.getDiagnosticReport();
-    return diagnosticReport == null ? "" : ourCtx.newJsonParser().encodeResourceToString(diagnosticReport);
+    return diagnosticReport == null ? "{}" : ourCtx.newJsonParser().encodeResourceToString(diagnosticReport);
   }
 
-  public List<String> getPatientDiagnosticReports(String path) {
+  public JSONArray getPatientDiagnosticReports(String path) {
+    JSONArray array = new JSONArray();
+
     DiagnosticReportsMap patientMap = new DiagnosticReportsMap(getResponse(path));
     List<DiagnosticReport> diagnosticReports = patientMap.getDiagnosticReports();
-    return diagnosticReports == null ? Collections.emptyList() :
-        diagnosticReports.stream()
-            .map(diagnosticReport -> ourCtx.newJsonParser().encodeResourceToString(diagnosticReport))
-            .collect(Collectors.toList());
+    if(diagnosticReports != null) {
+      diagnosticReports.stream()
+          .map(diagnosticReport -> ourCtx.newJsonParser().encodeResourceToString(diagnosticReport))
+          .forEach(s -> array.put(new JSONObject(s)));
+    }
+    return array;
   }
 
   public String getImagingStudy(String path) {
     ImagingStudyMap imagingStudyMap = new ImagingStudyMap(getResponse(path));
     ImagingStudy imagingStudy = imagingStudyMap.getImagingStudy();
-    return imagingStudy == null ? "" : ourCtx.newJsonParser().encodeResourceToString(imagingStudy);
+    return imagingStudy == null ? "{}" : ourCtx.newJsonParser().encodeResourceToString(imagingStudy);
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })

@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.json.JSONArray;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class PatientController {
 
-	FhirPatientService fhirPatientService;
-	ObjectMapper om;
+	private FhirPatientService fhirPatientService;
+	private ObjectMapper om;
 
 	PatientController(FhirPatientService fhirPatientService) {
 		this.fhirPatientService = fhirPatientService;
@@ -37,10 +36,10 @@ class PatientController {
 
 	@GetMapping(value = "/patient/{patientId}/condition", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<JSONArray> getCondition(@PathVariable String patientId) {
+	public ResponseEntity<String> getCondition(@PathVariable String patientId) {
 		JSONArray conditions = fhirPatientService.getPatientCondition("Condition?patient=" + patientId);
 
-		return new ResponseEntity<>(conditions, HttpStatus.OK);
+		return new ResponseEntity<>(conditions.toString(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/imagingstudy/{studyId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,10 +52,10 @@ class PatientController {
 
 	@GetMapping(value = "/patient/{patientId}/diagnosticreport", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<String>> getPatientReports(@PathVariable String patientId) {
-		List<String> drs = fhirPatientService.getPatientDiagnosticReports("DiagnosticReport?patient=" + patientId);
+	public ResponseEntity<String> getPatientReports(@PathVariable String patientId) {
+		JSONArray drs = fhirPatientService.getPatientDiagnosticReports("DiagnosticReport?patient=" + patientId);
 
-		return new ResponseEntity<>(drs, HttpStatus.OK);
+		return new ResponseEntity<>(drs.toString(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/diagnosticreport/{reportId}", produces = MediaType.APPLICATION_JSON_VALUE)
