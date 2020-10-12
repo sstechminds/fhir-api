@@ -1,4 +1,4 @@
-package com.flowsigma.ewocs.fhir.service;
+package com.flowsigma.ewocs.fhir.model.mapper;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
@@ -9,18 +9,17 @@ import org.hl7.fhir.dstu3.model.Bundle.BundleEntryComponent;
 import org.hl7.fhir.dstu3.model.DiagnosticReport;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.http.HttpEntity;
 
 public class DiagnosticReportsMap {
+  private FhirContext ctx = FhirContext.forDstu3();
 
   private List<DiagnosticReport> diagnosticReports;
-  private FhirContext ctx = FhirContext.forDstu3();
   private IParser parser;
 
-  public DiagnosticReportsMap(HttpEntity<String> response) throws JSONException {
+  public DiagnosticReportsMap(String response) throws JSONException {
     diagnosticReports = new ArrayList<>();
 
-    JSONObject resource = getResource(response.getBody());
+    JSONObject resource = getResource(response);
     parser = ctx.newJsonParser();
     parser.setPrettyPrint(true);
 

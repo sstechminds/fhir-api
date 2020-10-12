@@ -16,27 +16,24 @@ public class FhirRepository {
 
   private String fhirHostUrl;
   private String fhirApiKey;
+  private RestTemplate restTemplate;
 
-  public FhirRepository() {
-    this( "http://hackathon.siim.org/fhir/","dd6f7f1d-1586-438f-8d35-ff589a12f4df");
-  }
 
   public FhirRepository(@Value("${spring.fhir.host}") String fhirHostUrl,
       @Value("${spring.fhir.apiKey}") String fhirApiKey) {
     this.fhirHostUrl = fhirHostUrl;
     this.fhirApiKey = fhirApiKey;
+    this.restTemplate = new RestTemplate();
   }
 
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  public HttpEntity<String> getResponse(String path) {
-    RestTemplate restTemplate = new RestTemplate();
-
+  public String getResponse(String path) {
     HttpHeaders headers = new HttpHeaders();
     headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
     headers.add(API_KEY, fhirApiKey);
-
     HttpEntity entity = new HttpEntity(headers);
 
-    return restTemplate.exchange(fhirHostUrl + path, HttpMethod.GET, entity, String.class);
+    HttpEntity<String> resp = restTemplate.exchange(fhirHostUrl + path, HttpMethod.GET, entity, String.class);
+
+    return resp.getBody();
   }
 }

@@ -1,4 +1,4 @@
-package com.flowsigma.ewocs.fhir.service;
+package com.flowsigma.ewocs.fhir.model.mapper;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
@@ -6,16 +6,15 @@ import org.hl7.fhir.dstu3.model.Bundle;
 import org.hl7.fhir.dstu3.model.ImagingStudy;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.http.HttpEntity;
 
 public class ImagingStudyMap {
+  private FhirContext ctx = FhirContext.forDstu3();
 
   private ImagingStudy imagingStudy;
-  private FhirContext ctx = FhirContext.forDstu3();
   private IParser parser;
 
-  public ImagingStudyMap(HttpEntity<String> response) throws JSONException {
-    JSONObject resource = getResource(response.getBody());
+  public ImagingStudyMap(String response) throws JSONException {
+    JSONObject resource = getResource(response);
     parser = ctx.newJsonParser();
     parser.setPrettyPrint(true);
 
