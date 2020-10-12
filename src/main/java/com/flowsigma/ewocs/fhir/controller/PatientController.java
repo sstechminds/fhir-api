@@ -1,5 +1,6 @@
 package com.flowsigma.ewocs.fhir.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
@@ -30,10 +31,18 @@ class PatientController {
 
 	@GetMapping(value = "/patient", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<PatientRecord>> getPatients() {
+	public ResponseEntity<String> getPatients() {
 		List<PatientRecord> patients = fhirPatientService.getPatients("Patient");
 
-		return new ResponseEntity<>(patients, HttpStatus.OK);
+		return new ResponseEntity<>(serialize(patients), HttpStatus.OK);
+	}
+
+	private String serialize(List<PatientRecord> patients) {
+		try {
+			return om.writeValueAsString(patients);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@GetMapping(value = "/patient/{patientId}/condition", produces = MediaType.APPLICATION_JSON_VALUE)

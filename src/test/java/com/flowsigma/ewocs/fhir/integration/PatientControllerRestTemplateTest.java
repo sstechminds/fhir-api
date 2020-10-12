@@ -1,6 +1,7 @@
 package com.flowsigma.ewocs.fhir.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
@@ -41,23 +42,16 @@ class PatientControllerRestTemplateTest {
 
 	@Test
 	void findPatients() throws JSONException, URISyntaxException {
-		String expected = "{id:1,name:\"Book Name\",author:\"Mkyong\",price:9.99}";
+		String expected = "{\"id\":\"siimravi/_hist\",\"name\":\"Ravi SIIM\",\"gender\":\"Male\",\"birthDate\":\"Mon Mar 31\"}";
 
 		RestTemplate restTemplate = new RestTemplate();
 		final String baseUrl = "http://localhost:"+randomServerPort+"/patient/";
 		URI uri = new URI(baseUrl);
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Accept", "application/json");
-		HttpEntity requestEntity = new HttpEntity<>(null, headers);
 
-		ResponseEntity<List<PatientRecord>> response =
-				restTemplate.exchange(uri, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<PatientRecord>>() {});
+		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
-		List<PatientRecord> body = response.getBody();
-		System.out.println("Body" + body.toString());
-//TODO:		JSONAssert.assertEquals(expected, response.getBody(), false);
-//		verify(mockRepository, times(1)).findById(1L);
+		assertTrue(response.getBody().contains(expected));
 	}
 }
