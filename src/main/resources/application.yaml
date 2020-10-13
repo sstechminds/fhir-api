@@ -6,6 +6,9 @@ spring:
     serialization:
       indent-output: true
 
+server:
+  port: 8080
+
 logging:
   file:
     name: logs/hir-api.log
