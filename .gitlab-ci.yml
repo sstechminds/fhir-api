@@ -22,7 +22,7 @@ build:
 
 docker-push:
   image: centos:8
-  stage: git-copy
+  stage: docker-push
   when: always
 #  only:
 #    refs:
