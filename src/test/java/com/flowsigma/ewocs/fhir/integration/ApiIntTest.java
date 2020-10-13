@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 //https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-testing
 @SpringBootTest(webEnvironment= WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class ApiTest {
+class ApiIntTest {
 
 	private static final ObjectMapper om = new ObjectMapper();
 
