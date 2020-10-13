@@ -33,7 +33,8 @@ docker-push:
     - yum update -y
   script:
     - pwd
-    - cp build/libs/ewocs_fhir_api*.jar docker_ewocs/ewocsfhirapi.jar
+    - ls build/libs/
+    - cp build/libs/ewocs_fhir_api-*.jar build/libs/ewocsfhirapi.jar
     - curl -fsSL https://get.docker.com/ | sh
     - systemctl enable docker
     - systemctl start docker
