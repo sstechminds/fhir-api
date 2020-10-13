@@ -21,8 +21,12 @@ build:
       - build/libs
 
 docker-push:
-  image: centos:8
-  stage: docker-push
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
   when: always
 #  only:
 #    refs:
@@ -30,12 +34,9 @@ docker-push:
 #      - master
   before_script:
     - echo "In docker-push stage..."
-    - yum update -y
+#    - yum update -y
   script:
-    - pwd
-    - ls build/libs/
-    - cp build/libs/ewocs_fhir_api-*.jar build/libs/ewocsfhirapi.jar
-    - curl -fsSL https://get.docker.com/ | sh
-    - systemctl enable docker
-    - systemctl start docker
     - docker info
+    - docker login -u sglanger -p ThisIsEasy registry.hub.docker.com/sglanger/flowsigma_ewocs
+    - docker pull registry.hub.docker.com/sglanger/flowsigma_ewocs
+    - docker logout
