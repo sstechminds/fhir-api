@@ -3,10 +3,12 @@ package com.flowsigma.ewocs.fhir.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowsigma.ewocs.fhir.model.DiagnosticReportRecord;
+import com.flowsigma.ewocs.fhir.model.PatientDiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.springframework.http.HttpStatus;
@@ -72,8 +74,11 @@ class PatientController {
 
 	@GetMapping(value = "/patient/{patientId}/diagnosticreport/{reportId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Collection<Patient> getPatientReport(@PathVariable String patientId, @PathVariable String reportId) {
-		throw new UnsupportedOperationException("Looks like this endpoint is unavailable onn SIIM FHIR endpoints.");
+	public ResponseEntity<String> getPatientReport(@PathVariable String patientId, @PathVariable String reportId) {
+		List<DiagnosticReportRecord> drrs = fhirPatientService.getPatientDiagnosticReports("DiagnosticReport?patient=" + patientId);
+		List<PatientDiagnosticReportRecord> pdrrs = drrs.stream().map(dr -> new PatientDiagnosticReportRecord(patientId, dr)).collect(Collectors.toList());
+
+		return new ResponseEntity<>(serialize(pdrrs), HttpStatus.OK);
 	}
 
 	private String serialize(List<?> patients) {
