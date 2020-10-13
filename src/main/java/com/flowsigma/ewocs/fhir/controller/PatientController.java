@@ -2,6 +2,7 @@ package com.flowsigma.ewocs.fhir.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flowsigma.ewocs.fhir.model.DiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
 import java.util.Collection;
@@ -56,9 +57,9 @@ class PatientController {
 	@GetMapping(value = "/patient/{patientId}/diagnosticreport", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> getPatientReports(@PathVariable String patientId) {
-		String drs = fhirPatientService.getPatientDiagnosticReports("DiagnosticReport?patient=" + patientId);
+		List<DiagnosticReportRecord> drs = fhirPatientService.getPatientDiagnosticReports("DiagnosticReport?patient=" + patientId);
 
-		return new ResponseEntity<>(drs, HttpStatus.OK);
+		return new ResponseEntity<>(serialize(drs), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/diagnosticreport/{reportId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,7 +76,7 @@ class PatientController {
 		throw new UnsupportedOperationException("Looks like this endpoint is unavailable onn SIIM FHIR endpoints.");
 	}
 
-	private String serialize(List<PatientRecord> patients) {
+	private String serialize(List<?> patients) {
 		try {
 			return om.writeValueAsString(patients);
 		} catch (JsonProcessingException e) {

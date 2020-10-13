@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 //https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-testing
 @SpringBootTest(webEnvironment= WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class PatientControllerRestTemplateTest {
+class ApiTest {
 
 	private static final ObjectMapper om = new ObjectMapper();
 
@@ -44,6 +44,22 @@ class PatientControllerRestTemplateTest {
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
+		assertTrue(response.getBody().contains(expected));
+	}
+
+	@Test
+	void findPatientReports() throws JSONException, URISyntaxException {
+		String expected = "[{\"code\":\"24627-2\",\"text\":\"CT Chest\"},{\"code\":\"36572-6\",\"text\":\"Chest AP\"}]";
+
+		RestTemplate restTemplate = new RestTemplate();
+		final String baseUrl = "http://localhost:"+randomServerPort+"/patient/siimravi/diagnosticreport";
+		URI uri = new URI(baseUrl);
+
+		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
+
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
+
 		assertTrue(response.getBody().contains(expected));
 	}
 }

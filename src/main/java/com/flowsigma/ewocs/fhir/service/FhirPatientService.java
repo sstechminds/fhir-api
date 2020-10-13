@@ -1,6 +1,7 @@
 package com.flowsigma.ewocs.fhir.service;
 
 import ca.uhn.fhir.context.FhirContext;
+import com.flowsigma.ewocs.fhir.model.DiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.model.mapper.DiagnosticReportMap;
 import com.flowsigma.ewocs.fhir.model.mapper.DiagnosticReportsMap;
@@ -8,7 +9,9 @@ import com.flowsigma.ewocs.fhir.model.mapper.ImagingStudyMap;
 import com.flowsigma.ewocs.fhir.model.mapper.PatientConditionMap;
 import com.flowsigma.ewocs.fhir.model.mapper.PatientMap;
 import com.flowsigma.ewocs.fhir.repository.FhirRepository;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.DiagnosticReport;
@@ -80,11 +83,31 @@ public class FhirPatientService {
     return diagnosticReport == null ? "{}" : ourCtx.newJsonParser().encodeResourceToString(diagnosticReport);
   }
 
-  public String getPatientDiagnosticReports(String path) {
-    JSONArray array = new JSONArray();
-
+  public List<DiagnosticReportRecord>  getPatientDiagnosticReports(String path) {
     DiagnosticReportsMap patientMap = new DiagnosticReportsMap(fhirRepository.getResponse(path));
     List<DiagnosticReport> diagnosticReports = patientMap.getDiagnosticReports();
+
+    return buildCustomDiagnosticRecords(diagnosticReports);
+  }
+
+  private List<DiagnosticReportRecord> buildCustomDiagnosticRecords(List<DiagnosticReport> diagnosticReports) {
+    List<DiagnosticReportRecord> records = Collections.emptyList();
+    if(diagnosticReports != null) {
+      records = diagnosticReports.stream()
+          .map(diagnosticReport -> {
+            DiagnosticReportRecord record = new DiagnosticReportRecord();
+            record.setCode(diagnosticReport.getCode().getCoding().get(0).getCode());
+            record.setText(diagnosticReport.getCode().getText());
+            return record;
+          })
+          .collect(Collectors.toList());
+    }
+    return records;
+  }
+
+  private String buildFullDiagnosticRecords(List<DiagnosticReport> diagnosticReports) {
+    JSONArray array = new JSONArray();
+
     if(diagnosticReports != null) {
       diagnosticReports.stream()
           .map(diagnosticReport -> ourCtx.newJsonParser().encodeResourceToString(diagnosticReport))
