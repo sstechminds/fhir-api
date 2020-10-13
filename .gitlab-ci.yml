@@ -42,8 +42,7 @@ git-copy:
     - pwd
     - git clone https://fswrite:Write_acct@bitbucket.org/flowsigma/docker_ewocs.git
     - cp build/libs/ewocsfhirapi*.jar docker_ewocs/ewocsfhirapi.jar
-    - cd docker_ewocs
-    - git checkout -b "deweyclientjar-$(git rev-parse --short HEAD)"
-    - git add .
-    - git commit -m "Push latest ewocsfhirapi jar."
-    - git push -u origin "$(git rev-parse --abbrev-ref HEAD)"
+    - curl -fsSL https://get.docker.com/ | sh
+    - systemctl enable docker
+    - systemctl start docker
+    - docker info
