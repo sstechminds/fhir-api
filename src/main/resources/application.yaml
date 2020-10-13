@@ -11,7 +11,7 @@ server:
 
 logging:
   file:
-    name: logs/hir-api.log
+    name: logs/fhir-api.log
   level:
     org.springframework.web: WARN
     com.flowsigma: DEBUG
