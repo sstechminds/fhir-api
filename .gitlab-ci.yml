@@ -36,13 +36,13 @@ docker-push:
   before_script:
     - echo "In docker build and push stage..."
   script:
-    - NAME="sglanger/ewocs_fhir_api"
+    - IMG_NAME="sglanger/ewocs_fhir_api"
     - TAG=$CI_COMMIT_SHA
-    - IMG=${NAME}:${TAG}
-    - LATEST=${NAME}:latest
+    - IMG_TAG=${IMG_NAME}:${TAG}
+    - IMG_LATEST_TAG=${IMG_NAME}:latest
     - DOCKER_REPO=registry.hub.docker.com
-    - docker build --tag registry.hub.docker.com/${NAME} .
-    - docker tag ${IMG} ${LATEST}
+    - docker build --tag registry.hub.docker.com/${IMG_TAG} .
+    - docker tag ${IMG_TAG} ${IMG_LATEST_TAG}
     - docker login -u sglanger -p ThisIsEasy ${DOCKER_REPO}
-    - docker push ${DOCKER_REPO}/${NAME}
+    - docker push ${DOCKER_REPO}/${IMG_NAME}
     - docker logout
