@@ -29,10 +29,10 @@ docker-push:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_DRIVER: overlay2
   when: always
-#  only:
-#    refs:
-#      - tags
-#      - master
+  only:
+    refs:
+      - tags
+      - master
   before_script:
     - echo "In docker build and push stage..."
 # https://rollout.io/blog/using-docker-push-to-publish-images-to-dockerhub/
