@@ -10,18 +10,11 @@ spring:
       indent-output: true
 
 logging:
-  path: logs
-  name: logs/fhir-api.log
-  pattern:
-    console: '%-5p [%d] [%-30logger{1}] %m%n%rEx{4}'
-    file: '%-5p [%d] [%-30logger{1}] %m%n%rEx{4}'
+  file:
+    name: logs/fhir-api.log
   level:
-    root: ERROR
-    com.flowsigma: DEBUG
     org.springframework.web: WARN
-  appenders:
-    - type: console
-      logFormat: '%-5p [%d] [%-30logger{1}] %m%n%rEx{4}'
-    - type: file
-      currentLogFilename: ./logs/fhirapi.log
-      archivedLogFilenamePattern: ./logs/archive/fhirapi-%d.log.gz
+    com.flowsigma: DEBUG
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"

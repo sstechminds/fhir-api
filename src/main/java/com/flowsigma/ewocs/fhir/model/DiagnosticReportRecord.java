@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class DiagnosticReportRecord {
-  private String patientId;
   private String code;
   private String text;
 }

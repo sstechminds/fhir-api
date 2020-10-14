@@ -3,14 +3,10 @@ package com.flowsigma.ewocs.fhir.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.net.URISyntaxException;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.json.JSONException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -24,16 +20,11 @@ import org.springframework.web.client.RestTemplate;
 //https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-testing
 @SpringBootTest(webEnvironment= WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@Disabled
+//@Disabled
 class ApiIntTest {
-
-	private static final ObjectMapper om = new ObjectMapper();
 
 	@LocalServerPort
 	int randomServerPort;
-
-	@Value("${spring.fhir.host}")
-	String fhirHostUrl;
 
 	@Test
 	void findPatients() throws JSONException, URISyntaxException {
@@ -62,7 +53,6 @@ class ApiIntTest {
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
-
 		assertTrue(response.getBody().contains(expected));
 	}
 }
