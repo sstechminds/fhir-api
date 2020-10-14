@@ -36,6 +36,7 @@ docker-push:
   before_script:
     - echo "In docker build and push stage..."
 # https://rollout.io/blog/using-docker-push-to-publish-images-to-dockerhub/
+# https://forge.etsi.org/rep/help/ci/docker/using_docker_build.md
   script:
     - DOCKER_REPO=registry.hub.docker.com
     - IMG_NAME="${DOCKER_REPO}/sglanger/ewocs_fhir_api"
