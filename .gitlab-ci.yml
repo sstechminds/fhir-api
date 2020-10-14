@@ -34,10 +34,8 @@ docker-push:
       - tags
       - master
   before_script:
-    - echo "In docker-push stage..."
+    - echo "In docker build and push stage..."
   script:
-    - pwd
-    - docker info
     - docker build --tag registry.hub.docker.com/sglanger/ewocs_fhir_api .
     - docker login -u sglanger -p ThisIsEasy registry.hub.docker.com
     - docker push registry.hub.docker.com/sglanger/ewocs_fhir_api
