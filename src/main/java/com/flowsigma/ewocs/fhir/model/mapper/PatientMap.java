@@ -11,18 +11,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PatientMap {
-  private FhirContext ctx = FhirContext.forDstu3();
-
+  private FhirContext ctx;
   private List<PatientRecord> patients;
   private IParser parser;
 
   public PatientMap(String response) throws JSONException {
     patients = new ArrayList<>();
+    ctx = FhirContext.forDstu3();
 
     List<JSONObject> resources = getResources(response);
     for (JSONObject resource : resources) {
-      parser = ctx.newJsonParser();
-      parser.setPrettyPrint(true);
 
       addPatients(resource);
     }
@@ -34,6 +32,9 @@ public class PatientMap {
 
   private void addPatients(JSONObject resource) {
     PatientRecord patientRecord = new PatientRecord();
+
+    parser = ctx.newJsonParser();
+    parser.setPrettyPrint(true);
 
     Patient patientRes = parser.parseResource(Patient.class, resource.toString());
 

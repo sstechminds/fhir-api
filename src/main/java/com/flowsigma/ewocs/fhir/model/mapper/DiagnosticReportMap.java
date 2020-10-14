@@ -7,16 +7,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DiagnosticReportMap {
-  private FhirContext ctx = FhirContext.forDstu3();
-
+  private FhirContext ctx;
   private DiagnosticReport diagnosticReport;
   private IParser parser;
 
   public DiagnosticReportMap(String response) throws JSONException {
+    ctx = FhirContext.forDstu3();
 
     JSONObject resource = getResource(response);
-    parser = ctx.newJsonParser();
-    parser.setPrettyPrint(true);
 
     addDiagnosticReport(resource);
   }
@@ -26,7 +24,9 @@ public class DiagnosticReportMap {
   }
 
   private void addDiagnosticReport(JSONObject resource) {
-    System.out.println("DiagnosticReport:" + resource.toString());
+    parser = ctx.newJsonParser();
+    parser.setPrettyPrint(true);
+
     this.diagnosticReport = parser.parseResource(DiagnosticReport.class, resource.toString());
   }
 

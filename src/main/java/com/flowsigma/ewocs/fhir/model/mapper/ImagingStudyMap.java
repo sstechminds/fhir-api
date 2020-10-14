@@ -8,15 +8,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ImagingStudyMap {
-  private FhirContext ctx = FhirContext.forDstu3();
-
+  private FhirContext ctx;
   private ImagingStudy imagingStudy;
   private IParser parser;
 
   public ImagingStudyMap(String response) throws JSONException {
+    ctx = FhirContext.forDstu3();
+
     JSONObject resource = getResource(response);
-    parser = ctx.newJsonParser();
-    parser.setPrettyPrint(true);
 
     addImagingStudy(resource);
   }
@@ -26,7 +25,9 @@ public class ImagingStudyMap {
   }
 
   private void addImagingStudy(JSONObject resource) {
-    System.out.println("ImagingStudy:" + resource.toString());
+    parser = ctx.newJsonParser();
+    parser.setPrettyPrint(true);
+
     Bundle bundle = (Bundle) parser.parseResource(resource.toString());
     if(bundle.getEntry() != null && !bundle.getEntry().isEmpty()) {
       String id = bundle.getEntry().get(0).getId();

@@ -11,17 +11,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DiagnosticReportsMap {
-  private FhirContext ctx = FhirContext.forDstu3();
-
+  private FhirContext ctx;
   private List<DiagnosticReport> diagnosticReports;
   private IParser parser;
 
   public DiagnosticReportsMap(String response) throws JSONException {
     diagnosticReports = new ArrayList<>();
+    ctx = FhirContext.forDstu3();
 
     JSONObject resource = getResource(response);
-    parser = ctx.newJsonParser();
-    parser.setPrettyPrint(true);
 
     addDiagnosticReport(resource);
   }
@@ -31,7 +29,9 @@ public class DiagnosticReportsMap {
   }
 
   private void addDiagnosticReport(JSONObject resource) {
-    System.out.println("DiagnosticReport:" + resource.toString());
+    parser = ctx.newJsonParser();
+    parser.setPrettyPrint(true);
+
     Bundle bundle = (Bundle) parser.parseResource(resource.toString());
     if(bundle.getEntry() != null) {
       for(BundleEntryComponent bec : bundle.getEntry()) {

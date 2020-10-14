@@ -11,17 +11,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PatientConditionMap {
-  private FhirContext ctx = FhirContext.forDstu3();
-
+  private FhirContext ctx;
   private List<Condition> conditions;
   private IParser parser;
 
   public PatientConditionMap(String response) throws JSONException {
     conditions = new ArrayList<>();
+    ctx = FhirContext.forDstu3();
 
     JSONObject resource = getResource(response);
-    parser = ctx.newJsonParser();
-    parser.setPrettyPrint(true);
 
     addCondition(resource);
   }
@@ -31,7 +29,9 @@ public class PatientConditionMap {
   }
 
   private void addCondition(JSONObject resource) {
-    System.out.println("Condition:" + resource.toString());
+    parser = ctx.newJsonParser();
+    parser.setPrettyPrint(true);
+
     Bundle bundle = (Bundle) parser.parseResource(resource.toString());
     if(bundle.getEntry() != null) {
       for(BundleEntryComponent bec : bundle.getEntry()) {
