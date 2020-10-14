@@ -35,14 +35,15 @@ docker-push:
 #      - master
   before_script:
     - echo "In docker build and push stage..."
+# https://rollout.io/blog/using-docker-push-to-publish-images-to-dockerhub/
   script:
-    - IMG_NAME="sglanger/ewocs_fhir_api"
+    - DOCKER_REPO=registry.hub.docker.com
+    - IMG_NAME="${DOCKER_REPO}:sglanger/ewocs_fhir_api"
     - TAG=$CI_COMMIT_SHA
     - IMG_TAG=${IMG_NAME}:${TAG}
     - IMG_LATEST_TAG=${IMG_NAME}:latest
-    - DOCKER_REPO=registry.hub.docker.com
-    - docker build --tag registry.hub.docker.com/${IMG_TAG} .
+    - docker build --tag ${IMG_TAG} .
     - docker tag ${IMG_TAG} ${IMG_LATEST_TAG}
     - docker login -u sglanger -p ThisIsEasy ${DOCKER_REPO}
-    - docker push ${DOCKER_REPO}/${IMG_NAME}
+    - docker push ${IMG_NAME}
     - docker logout
