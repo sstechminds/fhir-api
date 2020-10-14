@@ -29,14 +29,20 @@ docker-push:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_DRIVER: overlay2
   when: always
-  only:
-    refs:
-      - tags
-      - master
+#  only:
+#    refs:
+#      - tags
+#      - master
   before_script:
     - echo "In docker build and push stage..."
   script:
-    - docker build --tag registry.hub.docker.com/sglanger/ewocs_fhir_api .
-    - docker login -u sglanger -p ThisIsEasy registry.hub.docker.com
-    - docker push registry.hub.docker.com/sglanger/ewocs_fhir_api
+    - NAME="sglanger/ewocs_fhir_api"
+    - TAG=$CI_COMMIT_SHA
+    - IMG=${NAME}:${TAG}
+    - LATEST=${NAME}:latest
+    - DOCKER_REPO=registry.hub.docker.com
+    - docker build --tag registry.hub.docker.com/${NAME} .
+    - docker tag ${IMG} ${LATEST}
+    - docker login -u sglanger -p ThisIsEasy ${DOCKER_REPO}
+    - docker push ${DOCKER_REPO}/${NAME}
     - docker logout
