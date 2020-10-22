@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.json.JSONException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -20,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 //https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-testing
 @SpringBootTest(webEnvironment= WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-//@Disabled
+@Disabled
 class ApiIntTest {
 
 	@LocalServerPort
