@@ -21,7 +21,6 @@ public class PatientMap {
 
     List<JSONObject> resources = getResources(response);
     for (JSONObject resource : resources) {
-
       addPatients(resource);
     }
   }
@@ -54,13 +53,14 @@ public class PatientMap {
     ArrayList<JSONObject> resources = new ArrayList<>();
 
     JSONObject json = new JSONObject(response);
-    JSONArray entries = json.getJSONArray("entry");
-    for (int i = 0; i < entries.length(); i++) {
-      JSONObject entry = entries.getJSONObject(i);
-      JSONObject resource = entry.getJSONObject("resource");
-      resources.add(resource);
+    if(json.has("entry")) {
+      JSONArray entries = json.getJSONArray("entry");
+      for (int i = 0; i < entries.length(); i++) {
+        JSONObject entry = entries.getJSONObject(i);
+        JSONObject resource = entry.getJSONObject("resource");
+        resources.add(resource);
+      }
     }
-
     return resources;
   }
 }

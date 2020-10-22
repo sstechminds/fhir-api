@@ -1,11 +1,30 @@
 package com.flowsigma.ewocs.fhir.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
 public class DiagnosticReportRecord {
   private String code;
   private String text;
+
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public String getText() {
+    return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
+  }
+
+
+  public String toString() {
+    return "DiagnosticReportRecord{" +
+            "code='" + code + '\'' +
+            ", text='" + text + '\'' +
+            '}';
+  }
 }

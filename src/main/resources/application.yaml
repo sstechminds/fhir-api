@@ -13,6 +13,7 @@ logging:
   file:
     name: logs/fhir-api.log
   level:
+    root: INFO
     org.springframework.web: WARN
     com.flowsigma: DEBUG
   pattern:

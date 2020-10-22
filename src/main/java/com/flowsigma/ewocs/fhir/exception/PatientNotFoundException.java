@@ -1,8 +1,12 @@
 package com.flowsigma.ewocs.fhir.exception;
 
-class PatientNotFoundException extends RuntimeException {
+public class PatientNotFoundException extends RuntimeException {
 
-	PatientNotFoundException(Long id) {
+	public PatientNotFoundException() {
+		super("No patient found");
+	}
+
+	public PatientNotFoundException(String id) {
 		super("No patient found for ID: " + id);
 	}
 }

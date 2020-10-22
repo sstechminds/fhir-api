@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.json.JSONException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -20,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 //https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-testing
 @SpringBootTest(webEnvironment= WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-//@Disabled
+@Disabled
 class ApiIntTest {
 
 	@LocalServerPort
@@ -54,5 +55,20 @@ class ApiIntTest {
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
 		assertTrue(response.getBody().contains(expected));
+	}
+
+	@Test
+	void findPatientReportsByDate() throws JSONException, URISyntaxException {
+		String expected = "[{\"code\":\"36572-6\",\"text\":\"Chest AP\"}]";
+
+		RestTemplate restTemplate = new RestTemplate();
+		final String baseUrl = "http://localhost:"+randomServerPort+"/patient/siimravi/diagnosticreport?issuedate=1-1-2000";
+		URI uri = new URI(baseUrl);
+
+		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
+
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
+		assertTrue(response.getBody().contains("36572-6"));
 	}
 }
