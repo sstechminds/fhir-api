@@ -68,6 +68,6 @@ class ApiIntTest {
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
-		assertTrue(response.getBody().contains(expected));
+		assertTrue(response.getBody().contains("36572-6"));
 	}
 }
