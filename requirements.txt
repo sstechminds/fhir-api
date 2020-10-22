@@ -1,0 +1,17 @@
+
+steve langer via messagingengine.com
+Oct 16, 2020, 12:56 PM (5 days ago)
+to me, Christopher
+
+python FHIR client  https://github.com/smart-on-fhir/client-py
+
+Whether in Java or Python class, we need to be able to get at least;
+a) for patient ID = 123 find list of orders for that patient on date = dd-mm-yyyy
+    i) you would get the patientID from the DICOM image that came in, and also have that exam's ID called an "accession"
+    ii) to find all the orders for that patient need to do a FHIR query on GetPatientOrders (soeitng like  this in boh HAPI and py-client)
+b) also need to be able to do post patient result to an examID
+
+FHIR resources, a result would be  reported back to the hospital with this
+https://www.hl7.org/fhir/diagnosticreport.html
+
+The JSON tab can be used to build a template

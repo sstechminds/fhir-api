@@ -55,4 +55,19 @@ class ApiIntTest {
 		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
 		assertTrue(response.getBody().contains(expected));
 	}
+
+	@Test
+	void findPatientReportsByDate() throws JSONException, URISyntaxException {
+		String expected = "[{\"code\":\"36572-6\",\"text\":\"Chest AP\"}]";
+
+		RestTemplate restTemplate = new RestTemplate();
+		final String baseUrl = "http://localhost:"+randomServerPort+"/patient/siimravi/diagnosticreport?issuedate=1-1-2000";
+		URI uri = new URI(baseUrl);
+
+		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
+
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
+		assertTrue(response.getBody().contains(expected));
+	}
 }

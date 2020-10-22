@@ -9,16 +9,23 @@ import com.flowsigma.ewocs.fhir.model.mapper.ImagingStudyMap;
 import com.flowsigma.ewocs.fhir.model.mapper.PatientConditionMap;
 import com.flowsigma.ewocs.fhir.model.mapper.PatientMap;
 import com.flowsigma.ewocs.fhir.repository.FhirRepository;
-import java.util.Collections;
-import java.util.List;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import com.flowsigma.ewocs.fhir.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.dstu3.model.Condition;
+import org.hl7.fhir.dstu3.model.DateTimeType;
 import org.hl7.fhir.dstu3.model.DiagnosticReport;
 import org.hl7.fhir.dstu3.model.ImagingStudy;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+
+import static com.flowsigma.ewocs.fhir.util.DateUtil.formattedDate;
 
 @Slf4j
 @Service
@@ -34,7 +41,7 @@ public class FhirPatientService {
   public static void main(String[] args) {
     FhirRepository repo = new FhirRepository( "http://hackathon.siim.org/fhir/","dd6f7f1d-1586-438f-8d35-ff589a12f4df");
 
-  //    List<Map<String, String>> patients = new FhirPatientService().getPatients("Patient");
+    //    List<Map<String, String>> patients = new FhirPatientService().getPatients("Patient");
 //    System.out.printf("Patients: \n" + patients.toString());
 //
 //    //https://github.com/jamesagnew/hapi-fhir/blob/master/hapi-fhir-structures-dstu3/src/test/java/ca/uhn/fhir/parser/JsonParserDstu3Test.java
@@ -71,8 +78,8 @@ public class FhirPatientService {
     List<Condition> conditions = patientMap.getPatientConditions();
     if(conditions != null) {
       conditions.stream()
-          .map(condition -> ourCtx.newJsonParser().encodeResourceToString(condition))
-          .forEach(s -> array.put(new JSONObject(s)));
+              .map(condition -> ourCtx.newJsonParser().encodeResourceToString(condition))
+              .forEach(s -> array.put(new JSONObject(s)));
     }
     return array.toString();
   }
@@ -83,26 +90,40 @@ public class FhirPatientService {
     return diagnosticReport == null ? "{}" : ourCtx.newJsonParser().encodeResourceToString(diagnosticReport);
   }
 
-  public List<DiagnosticReportRecord>  getPatientDiagnosticReports(String path) {
+  public List<DiagnosticReportRecord> getPatientDiagnosticReports(String path) {
     DiagnosticReportsMap patientMap = new DiagnosticReportsMap(fhirRepository.getResponse(path));
     List<DiagnosticReport> diagnosticReports = patientMap.getDiagnosticReports();
 
-    return buildCustomDiagnosticRecords(diagnosticReports);
+    return buildCustomDiagnosticRecords(diagnosticReports, null);
   }
 
-  private List<DiagnosticReportRecord> buildCustomDiagnosticRecords(List<DiagnosticReport> diagnosticReports) {
+  public List<DiagnosticReportRecord> getPatientDiagnosticReports(String path, String issuedDate) {
+    DiagnosticReportsMap patientMap = new DiagnosticReportsMap(fhirRepository.getResponse(path));
+    List<DiagnosticReport> diagnosticReports = patientMap.getDiagnosticReports();
+
+    return buildCustomDiagnosticRecords(diagnosticReports, issuedDate);
+  }
+
+  private List<DiagnosticReportRecord> buildCustomDiagnosticRecords(List<DiagnosticReport> diagnosticReports, String issuedDate) {
     List<DiagnosticReportRecord> records = Collections.emptyList();
+
     if(diagnosticReports != null) {
       records = diagnosticReports.stream()
-          .map(diagnosticReport -> {
-            DiagnosticReportRecord record = new DiagnosticReportRecord();
-            record.setCode(diagnosticReport.getCode().getCoding().get(0).getCode());
-            record.setText(diagnosticReport.getCode().getText());
-            return record;
-          })
-          .collect(Collectors.toList());
+              //.filter(diagnosticReport -> diagnosticReport.getEffective().equals(inputDate))
+              .filter(diagnosticReport -> includeRecordByDate(diagnosticReport.getIssued(), issuedDate))
+              .map(diagnosticReport -> {
+                  DiagnosticReportRecord record = new DiagnosticReportRecord();
+                  record.setCode(diagnosticReport.getCode().getCoding().get(0).getCode());
+                  record.setText(diagnosticReport.getCode().getText());
+                  return record;
+              })
+              .collect(Collectors.toList());
     }
     return records;
+  }
+
+  private boolean includeRecordByDate(Date issuedDate, String inputDate) {
+    return (inputDate == null) || formattedDate(issuedDate).equals(DateUtil.parse(inputDate));
   }
 
   private String buildFullDiagnosticRecords(List<DiagnosticReport> diagnosticReports) {
@@ -110,8 +131,8 @@ public class FhirPatientService {
 
     if(diagnosticReports != null) {
       diagnosticReports.stream()
-          .map(diagnosticReport -> ourCtx.newJsonParser().encodeResourceToString(diagnosticReport))
-          .forEach(s -> array.put(new JSONObject(s)));
+              .map(diagnosticReport -> ourCtx.newJsonParser().encodeResourceToString(diagnosticReport))
+              .forEach(s -> array.put(new JSONObject(s)));
     }
     return array.toString();
   }
