@@ -4,6 +4,11 @@ public class PatientDiagnosticReportRecord {
   private String patientId;
   private DiagnosticReportRecord diagnosticReportRecord;
 
+  public PatientDiagnosticReportRecord(String patientId, DiagnosticReportRecord diagnosticReportRecord) {
+    this.patientId = patientId;
+    this.diagnosticReportRecord = diagnosticReportRecord;
+  }
+
   public String getPatientId() {
     return patientId;
   }
