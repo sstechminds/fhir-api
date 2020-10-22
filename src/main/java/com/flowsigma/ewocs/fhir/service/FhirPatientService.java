@@ -38,34 +38,6 @@ public class FhirPatientService {
     this.ourCtx = FhirContext.forDstu3();
   }
 
-  public static void main(String[] args) {
-    FhirRepository repo = new FhirRepository( "http://hackathon.siim.org/fhir/","dd6f7f1d-1586-438f-8d35-ff589a12f4df");
-
-    //    List<Map<String, String>> patients = new FhirPatientService().getPatients("Patient");
-//    System.out.printf("Patients: \n" + patients.toString());
-//
-//    //https://github.com/jamesagnew/hapi-fhir/blob/master/hapi-fhir-structures-dstu3/src/test/java/ca/uhn/fhir/parser/JsonParserDstu3Test.java
-//    String patientID = "siimravi";
-//    String patientCondition = new FhirPatientService().getPatientCondition("Condition?patient=" + patientID);
-//    System.out.print("patientConditions: \n" + patientCondition);
-//
-//    String studyID = "a819497684894127";
-//    String imagingStudy = new FhirPatientService().getImagingStudy("ImagingStudy?_id=" + studyID);
-//    System.out.print("imagingStudy: \n" + imagingStudy);
-//
-//    String patientID = "siimravi";
-//    String diagnosticReport = new FhirPatientService().getPatientDiagnosticReports("DiagnosticReport?patient=" + patientID);
-//    System.out.print("diagnosticReports: \n" + diagnosticReport);
-
-//    String patientID = "siimravi";
-//    String diagnosticReportID = "a819497684894128";
-//    String diagnosticReport = new FhirPatientService(new FhirRepository()).getPatientDiagnosticReport( "DiagnosticReport/" + diagnosticReportID);
-//    System.out.print("diagnosticReport: \n" + diagnosticReport);
-
-//    String diagnosticReport2 = new FhirPatientService().getPatientDiagnosticReports(FHIR_HOST_URL + "DiagnosticReport?patient=" + patientID + "%26report=" + diagnosticReportID);
-//    System.out.print("diagnosticReport2: \n" + diagnosticReport2);
-  }
-
   public List<PatientRecord> getPatients(String path) {
     PatientMap patientMap = new PatientMap(fhirRepository.getResponse(path));
     return patientMap.getPatientRecords();
