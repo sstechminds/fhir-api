@@ -1,17 +1,46 @@
 package com.flowsigma.ewocs.fhir.service;
 
-import com.flowsigma.ewocs.fhir.repository.FhirRepository;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
+import com.flowsigma.ewocs.fhir.model.PatientRecord;
+import com.flowsigma.ewocs.fhir.repository.FhirRepository;
+import com.flowsigma.ewocs.fhir.util.FileResourcesUtils;
+import com.google.gson.Gson;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+
+
+@SpringBootTest
 class FhirPatientServiceTest {
 
-    FhirRepository repo = new FhirRepository( "http://hackathon.siim.org/fhir/","dd6f7f1d-1586-438f-8d35-ff589a12f4df");
+    @Mock
+    private FhirRepository fhirRepository;
 
+    private FhirPatientService helloService;
+
+    Gson gson = new Gson();
+
+    File patientsFile = new FileResourcesUtils().getFileAsStringFromResource("testdata/patients.json");
+
+    @BeforeEach
+    void setMockOutput() throws FileNotFoundException {
+        helloService = new FhirPatientService(fhirRepository);
+
+        Object patients = gson.fromJson(new FileReader(patientsFile), Object.class);
+        when(fhirRepository.getResponse("/patient")).thenReturn(gson.toJson(patients));
+    }
 
     @Test
     void testGetPatients() {
-        //    List<Map<String, String>> patients = new FhirPatientService().getPatients("Patient");
-//    System.out.printf("Patients: \n" + patients.toString());
+        List<PatientRecord> patients = helloService.getPatients("/patient");
+        assertEquals(15, patients.size());
     }
 
     @Test

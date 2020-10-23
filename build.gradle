@@ -78,6 +78,8 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	compile 'com.google.code.gson:gson:2.8.6'
+
 //	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //	runtimeOnly 'org.postgresql:postgresql'
 
@@ -100,9 +102,7 @@ dependencies {
 	implementation 'org.codehaus.groovy:groovy:3.0.5'
 	testImplementation('org.spockframework:spock-core:2.0-M3-groovy-3.0')
 	testImplementation('org.spockframework:spock-spring:2.0-M3-groovy-3.0')
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+
 	testRuntime 'cglib:cglib-nodep:3.3.0'
 
 //	testImplementation 'org.springframework.security:spring-security-test'

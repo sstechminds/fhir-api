@@ -1,5 +1,7 @@
 package com.flowsigma.ewocs.fhir.service;
 
+import static com.flowsigma.ewocs.fhir.util.DateUtil.formattedDate;
+
 import ca.uhn.fhir.context.FhirContext;
 import com.flowsigma.ewocs.fhir.model.DiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
@@ -9,23 +11,18 @@ import com.flowsigma.ewocs.fhir.model.mapper.ImagingStudyMap;
 import com.flowsigma.ewocs.fhir.model.mapper.PatientConditionMap;
 import com.flowsigma.ewocs.fhir.model.mapper.PatientMap;
 import com.flowsigma.ewocs.fhir.repository.FhirRepository;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.stream.Collectors;
-
 import com.flowsigma.ewocs.fhir.util.DateUtil;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.dstu3.model.Condition;
-import org.hl7.fhir.dstu3.model.DateTimeType;
 import org.hl7.fhir.dstu3.model.DiagnosticReport;
 import org.hl7.fhir.dstu3.model.ImagingStudy;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-
-import static com.flowsigma.ewocs.fhir.util.DateUtil.formattedDate;
 
 @Slf4j
 @Service

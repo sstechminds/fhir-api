@@ -14,15 +14,20 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(value = { IllegalArgumentException.class })
-	protected ResponseEntity<Object> handleInvalidInput(RuntimeException ex, WebRequest request) {
+	protected ResponseEntity<Object> handleInvalidInput(IllegalArgumentException ex, WebRequest request) {
 		String bodyOfResponse = "Invalid user request";
 		return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 
 	@ExceptionHandler(value = { IllegalStateException.class })
-	protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
+	protected ResponseEntity<Object> handleConflict(IllegalStateException ex, WebRequest request) {
 		String bodyOfResponse = "Invalid user request";
 		return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
+	}
+
+	@ExceptionHandler(RuntimeException.class)
+	public final ResponseEntity<Exception> handleAllExceptions(RuntimeException ex) {
+		return new ResponseEntity<>(ex, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ResponseBody
