@@ -1,6 +1,5 @@
-package com.flowsigma.ewocs.fhir.dicom;
+package com.flowsigma.ewocs.fhir.util;
 
-import com.flowsigma.ewocs.fhir.util.TagLoader;
 import org.dcm4che2.data.DicomObject;
 import org.dcm4che2.data.Tag;
 
