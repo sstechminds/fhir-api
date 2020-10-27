@@ -1,47 +1,45 @@
 {
   "resourceType": "DiagnosticReport",
-  "id": "a819497684894129",
+  "id": "98e94aaf-5bbb-4ee5-b034-36ad51b7bdc9",
   "meta": {
-    "versionId": "1",
-    "lastUpdated": "2020-10-25T03:00:47.076+00:00"
+    "versionId": "1"
   },
-  "identifier": [
-    {
-      "use": "usual",
-      "system": "http://www.siim.org/",
-      "value": "a819497684894128"
-    }
-  ],
+  "identifier": [ {
+    "use": "usual",
+    "system": "http://flowsigma.com",
+    "value": "2012cec4-dd9f-416c-839e-f64a1016a688"
+  } ],
   "status": "final",
-  "category": [
-    {
-      "coding": [
-        {
-          "system": "http://hl7.org/fhir/v2/0074",
-          "code": "RAD"
-        }
-      ]
-    }
-  ],
+  "category": [ {
+    "coding": [ {
+      "system": "http://hl7.org/fhir/v2/0074",
+      "code": "RAD"
+    } ]
+  } ],
   "code": {
-    "coding": [
-      {
-        "system": "http://loinc.org/",
-        "code": "24627-2"
-      }
-    ],
+    "coding": [ {
+      "system": "http://flowsigma.com",
+      "code": "24627-2"
+    } ],
     "text": "CT Chest"
   },
   "subject": {
     "reference": "Patient/siimravi2"
   },
-  "effectiveDateTime": "2000-01-01",
-  "issued": "2000-01-01T12:22:00+00:00",
-  "performer": [
-    {
-      "reference": "Organization/siim",
-      "display": "Society of Imaging Informatics in Medicine"
-    }
-  ],
-  "conclusion": "Impression: Interval evolution of left upper lobe cavitary lesion in the left upper and new right lower lobe nodule. Given the rapid evolution of these cavitary lesions an infectious etiology is favored. Unchanged bandlike areas of atelectasis/scarring and bronchiectasis in the right upper lobe likely related to prior infection/insult."
+  "effectiveDateTime": "2020-10-26T20:13:09-05:00",
+  "issued": "2020-10-26T20:13:09.910-05:00",
+  "performer": [ {
+    "reference": "Organization/siim",
+    "display": "Society of Imaging Informatics in Medicine"
+  } ],
+
+  "result": [ {
+    "reference": "Observation/sample02ob03",
+    "display": "FlowSIGMA DICOM analytic results"
+  } ],
+  "imagingStudy": [ {
+    "reference": "imageStudyRef",
+    "display": "FlowSIGMA DICOM image analytics"
+  } ],
+  "conclusion": "conclusion"
 }
