@@ -4,9 +4,9 @@ import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 import java.util.ArrayList;
 import java.util.List;
-import org.hl7.fhir.dstu3.model.Bundle;
-import org.hl7.fhir.dstu3.model.Bundle.BundleEntryComponent;
-import org.hl7.fhir.dstu3.model.Condition;
+import org.hl7.fhir.r4.model.Bundle;
+import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent;
+import org.hl7.fhir.r4.model.Condition;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,7 +17,7 @@ public class PatientConditionMap {
 
   public PatientConditionMap(String response) throws JSONException {
     conditions = new ArrayList<>();
-    ctx = FhirContext.forDstu3();
+    ctx = FhirContext.forR4();
 
     JSONObject resource = getResource(response);
 

@@ -34,7 +34,7 @@ public class PatientControllerTest {
 
     mockMvc.perform(get("/patient"))
         .andExpect(status().isOk())
-        .andExpect(content().string("[]"))
+        .andExpect(content().string("[ ]"))
         .andDo(print());
   }
 

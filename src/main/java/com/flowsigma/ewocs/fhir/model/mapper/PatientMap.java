@@ -5,7 +5,7 @@ import ca.uhn.fhir.parser.IParser;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import java.util.ArrayList;
 import java.util.List;
-import org.hl7.fhir.dstu3.model.Patient;
+import org.hl7.fhir.r4.model.Patient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +17,7 @@ public class PatientMap {
 
   public PatientMap(String response) throws JSONException {
     patients = new ArrayList<>();
-    ctx = FhirContext.forDstu3();
+    ctx = FhirContext.forR4();
 
     List<JSONObject> resources = getResources(response);
     for (JSONObject resource : resources) {

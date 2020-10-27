@@ -33,7 +33,7 @@ class ApiIntTest {
 
 	@Test
 	void findPatients() throws JSONException, URISyntaxException {
-		String expected = "{\"id\":\"siimravi/_hist\",\"name\":\"Ravi SIIM\",\"gender\":\"Male\",\"birthDate\":\"Mon Mar 31\"}";
+		String expected = "{\"id\":\"siimravi2/_hist\",\"name\":\"Ravi SIIM\",\"gender\":\"Male\",\"birthDate\":\"Mon Mar 31\"}";
 
 		final String baseUrl = "http://localhost:"+randomServerPort+"/patient/";
 		URI uri = new URI(baseUrl);
@@ -49,7 +49,7 @@ class ApiIntTest {
 	void findPatientReports() throws JSONException, URISyntaxException {
 		String expected = "[{\"code\":\"24627-2\",\"text\":\"CT Chest\"},{\"code\":\"36572-6\",\"text\":\"Chest AP\"}]";
 
-		final String baseUrl = "http://localhost:"+randomServerPort+"/patient/siimravi/diagnosticreport";
+		final String baseUrl = "http://localhost:"+randomServerPort+"/patient/siimravi2/diagnosticreport";
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
@@ -63,7 +63,7 @@ class ApiIntTest {
 	void findPatientReportsByDate() throws JSONException, URISyntaxException {
 		String expected = "[{\"code\":\"36572-6\",\"text\":\"Chest AP\"}]";
 
-		final String baseUrl = "http://localhost:"+randomServerPort+"/patient/siimravi/diagnosticreport?issuedate=1-1-2000";
+		final String baseUrl = "http://localhost:"+randomServerPort+"/patient/siimravi2/diagnosticreport?issuedate=1-1-2000";
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);

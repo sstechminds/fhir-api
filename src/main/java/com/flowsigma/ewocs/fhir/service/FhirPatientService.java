@@ -1,10 +1,12 @@
 package com.flowsigma.ewocs.fhir.service;
 
-import static com.flowsigma.ewocs.fhir.util.DateUtil.formattedDate;
+import static com.flowsigma.ewocs.fhir.util.DateUtil.formatToLocalDate;
 
 import ca.uhn.fhir.context.FhirContext;
+import com.flowsigma.ewocs.fhir.model.DiagnosticRecord;
 import com.flowsigma.ewocs.fhir.model.DiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
+import com.flowsigma.ewocs.fhir.model.mapper.DiagnosticRecordMap;
 import com.flowsigma.ewocs.fhir.model.mapper.DiagnosticReportMap;
 import com.flowsigma.ewocs.fhir.model.mapper.DiagnosticReportsMap;
 import com.flowsigma.ewocs.fhir.model.mapper.ImagingStudyMap;
@@ -17,9 +19,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
-import org.hl7.fhir.dstu3.model.Condition;
-import org.hl7.fhir.dstu3.model.DiagnosticReport;
-import org.hl7.fhir.dstu3.model.ImagingStudy;
+import org.hl7.fhir.r4.model.Condition;
+import org.hl7.fhir.r4.model.DiagnosticReport;
+import org.hl7.fhir.r4.model.ImagingStudy;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -32,12 +34,18 @@ public class FhirPatientService {
 
   public FhirPatientService(FhirRepository fhirRepository) {
     this.fhirRepository = fhirRepository;
-    this.ourCtx = FhirContext.forDstu3();
+    this.ourCtx = FhirContext.forR4();
   }
 
   public List<PatientRecord> getPatients(String path) {
     PatientMap patientMap = new PatientMap(fhirRepository.getResponse(path));
     return patientMap.getPatientRecords();
+  }
+
+  public List<DiagnosticRecord> getDiagnosticOrders(String path) {
+    DiagnosticRecordMap diagnosticRecordMap = new DiagnosticRecordMap(fhirRepository.getResponse(path));
+
+    return diagnosticRecordMap.getDiagnosticRecords();
   }
 
   public String getPatientCondition(String path) {
@@ -92,7 +100,7 @@ public class FhirPatientService {
   }
 
   private boolean includeRecordByDate(Date issuedDate, String inputDate) {
-    return (inputDate == null) || formattedDate(issuedDate).equals(DateUtil.parse(inputDate));
+    return (inputDate == null) || formatToLocalDate(issuedDate).equals(DateUtil.parseToLocalDate(inputDate));
   }
 
   private String buildFullDiagnosticRecords(List<DiagnosticReport> diagnosticReports) {

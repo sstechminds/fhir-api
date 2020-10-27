@@ -2,7 +2,7 @@ package com.flowsigma.ewocs.fhir.model.mapper;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
-import org.hl7.fhir.dstu3.model.DiagnosticReport;
+import org.hl7.fhir.r4.model.DiagnosticReport;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,7 +12,7 @@ public class DiagnosticReportMap {
   private IParser parser;
 
   public DiagnosticReportMap(String response) throws JSONException {
-    ctx = FhirContext.forDstu3();
+    ctx = FhirContext.forR4();
 
     JSONObject resource = getResource(response);
 

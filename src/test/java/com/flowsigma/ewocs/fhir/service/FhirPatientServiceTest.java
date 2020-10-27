@@ -45,21 +45,21 @@ class FhirPatientServiceTest {
     @Test
     void testGetPatientCondition() {
         //    //https://github.com/jamesagnew/hapi-fhir/blob/master/hapi-fhir-structures-dstu3/src/test/java/ca/uhn/fhir/parser/JsonParserDstu3Test.java
-//    String patientID = "siimravi";
+//    String patientID = "siimravi2";
 //    String patientCondition = new FhirPatientService().getPatientCondition("Condition?patient=" + patientID);
 //    System.out.print("patientConditions: \n" + patientCondition);
     }
 
     @Test
     void testGetPatientDiagnosticReport() {
-        //    String patientID = "siimravi";
+        //    String patientID = "siimravi2";
 //    String diagnosticReport = new FhirPatientService().getPatientDiagnosticReports("DiagnosticReport?patient=" + patientID);
 //    System.out.print("diagnosticReports: \n" + diagnosticReport);
     }
 
     @Test
     void testGetDiagnosticReport() {
-        //    String patientID = "siimravi";
+        //    String patientID = "siimravi2";
 //    String diagnosticReportID = "a819497684894128";
 //    String diagnosticReport = new FhirPatientService(new FhirRepository()).getPatientDiagnosticReport( "DiagnosticReport/" + diagnosticReportID);
 //    System.out.print("diagnosticReport: \n" + diagnosticReport);

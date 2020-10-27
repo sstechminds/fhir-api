@@ -9,10 +9,13 @@ import java.io.IOException;
 public class DicomTagExtractor {
 
     public static void main(String[] args) {
-        String dicomFilePath = "src/test/resources/dicom/Image-1.dcm";
+        String dicomFilePath = "src/test/resources/dicom/ImageWithAccession.dcm";
 
         DicomObject dataset = new DicomTagExtractor().getTags(dicomFilePath);
-        System.out.println("dataset" + dataset);
+        //System.out.println("dataset" + dataset);
+        System.out.println("Patient ID:" + new String(dataset.get(Tag.PatientID).getBytes()));
+        System.out.println("Patient Name:" + new String(dataset.get(Tag.PatientName).getBytes()));
+        System.out.println("Accession Number:" + new String(dataset.get(Tag.AccessionNumber).getBytes()));
     }
 
     public String getPatientId(String filePath) {
