@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class DiagnosticRecord {
+public class DiagnosticOrderRecord {
   private String status;
   private String codingCode;
   private String codeText;

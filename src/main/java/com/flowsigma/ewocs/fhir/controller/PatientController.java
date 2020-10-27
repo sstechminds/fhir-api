@@ -2,21 +2,19 @@ package com.flowsigma.ewocs.fhir.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flowsigma.ewocs.fhir.model.DiagnosticRecord;
+import com.flowsigma.ewocs.fhir.model.DiagnosticOrderRecord;
 import com.flowsigma.ewocs.fhir.model.DiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientDiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.hl7.fhir.r4.model.DiagnosticReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,8 +44,8 @@ class PatientController {
 
 	@GetMapping(value = "/patient/{patientId}/diagnosticorder", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<DiagnosticRecord>> getDiagnosticOrders(@PathVariable String patientId) {
-		List<DiagnosticRecord> orders = fhirPatientService.getDiagnosticOrders("ServiceRequest?patient=" + patientId);
+	public ResponseEntity<List<DiagnosticOrderRecord>> getDiagnosticOrders(@PathVariable String patientId) {
+		List<DiagnosticOrderRecord> orders = fhirPatientService.getDiagnosticOrders("ServiceRequest?patient=" + patientId);
 
 		return new ResponseEntity<>(orders, HttpStatus.OK);
 	}

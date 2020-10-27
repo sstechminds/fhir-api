@@ -5,7 +5,7 @@ import static com.flowsigma.ewocs.fhir.util.DateUtil.formatToLocalDate;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import com.flowsigma.ewocs.fhir.builder.DiagnosticReportBuilder;
-import com.flowsigma.ewocs.fhir.model.DiagnosticRecord;
+import com.flowsigma.ewocs.fhir.model.DiagnosticOrderRecord;
 import com.flowsigma.ewocs.fhir.model.DiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.model.mapper.DiagnosticRecordMap;
@@ -44,7 +44,7 @@ public class FhirPatientService {
     return patientMap.getPatientRecords();
   }
 
-  public List<DiagnosticRecord> getDiagnosticOrders(String path) {
+  public List<DiagnosticOrderRecord> getDiagnosticOrders(String path) {
     DiagnosticRecordMap diagnosticRecordMap = new DiagnosticRecordMap(fhirRepository.getResponse(path));
 
     return diagnosticRecordMap.getDiagnosticRecords();
