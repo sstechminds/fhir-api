@@ -80,17 +80,18 @@ public class DiagnosticReportBuilder {
 
         List<Reference> results = new ArrayList<>();
         Reference resultRef = new Reference();
-        resultRef.setReference("resultRef");
+        resultRef.setReference("Observation/sample02ob03"); //TODO: Create Observation
         resultRef.setDisplay("FlowSIGMA DICOM analytic results");
         results.add(resultRef);
         dr.setResult(results);
 
-        List<Reference> specimens = new ArrayList<>();
-        Reference specimenRef = new Reference();
-        specimenRef.setReference("specimenRef");
-        specimenRef.setDisplay("FlowSIGMA DICOM analytic specimen");
-        specimens.add(specimenRef);
-        dr.setSpecimen(specimens);
+//  Create Specimen reference Ex: refer https://github.com/synthetichealth/gofhir/issues/29
+//        List<Reference> specimens = new ArrayList<>();
+//        Reference specimenRef = new Reference();
+//        specimenRef.setReference("specimenRef");
+//        specimenRef.setDisplay("FlowSIGMA DICOM analytic specimen");
+//        specimens.add(specimenRef);
+//        dr.setSpecimen(specimens);
 
         dr.setConclusion("conclusion");
 

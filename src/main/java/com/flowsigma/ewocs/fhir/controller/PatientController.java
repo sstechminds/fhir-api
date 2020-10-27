@@ -9,13 +9,16 @@ import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.hl7.fhir.r4.model.DiagnosticReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +50,13 @@ class PatientController {
 		List<DiagnosticRecord> orders = fhirPatientService.getDiagnosticOrders("ServiceRequest?patient=" + patientId);
 
 		return new ResponseEntity<>(orders, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/patient/{patientId}/diagnosticreport")
+	public ResponseEntity<Void> createDiagnosticReport(@PathVariable String patientId) {
+		fhirPatientService.createDiagnosticReport(patientId);
+
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/patient/{patientId}/condition", produces = MediaType.APPLICATION_JSON_VALUE)

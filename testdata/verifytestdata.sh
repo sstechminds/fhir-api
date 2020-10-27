@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Find PID of the ports in use
-# netstat -ano | findstr 8010
+# netstat -ano | findstr 8009
 
 # Kill the process. Following cmd works on DOS terminal
 # netstat -ano | findstr <PID>

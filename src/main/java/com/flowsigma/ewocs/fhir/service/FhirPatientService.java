@@ -3,6 +3,8 @@ package com.flowsigma.ewocs.fhir.service;
 import static com.flowsigma.ewocs.fhir.util.DateUtil.formatToLocalDate;
 
 import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.rest.api.MethodOutcome;
+import com.flowsigma.ewocs.fhir.builder.DiagnosticReportBuilder;
 import com.flowsigma.ewocs.fhir.model.DiagnosticRecord;
 import com.flowsigma.ewocs.fhir.model.DiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
@@ -29,12 +31,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class FhirPatientService {
-  private FhirContext ourCtx;
+  private FhirContext fhirContext;
   private FhirRepository fhirRepository;
 
   public FhirPatientService(FhirRepository fhirRepository) {
     this.fhirRepository = fhirRepository;
-    this.ourCtx = FhirContext.forR4();
+    this.fhirContext = FhirContext.forR4();
   }
 
   public List<PatientRecord> getPatients(String path) {
@@ -55,7 +57,7 @@ public class FhirPatientService {
     List<Condition> conditions = patientMap.getPatientConditions();
     if(conditions != null) {
       conditions.stream()
-              .map(condition -> ourCtx.newJsonParser().encodeResourceToString(condition))
+              .map(condition -> fhirContext.newJsonParser().encodeResourceToString(condition))
               .forEach(s -> array.put(new JSONObject(s)));
     }
     return array.toString();
@@ -64,7 +66,7 @@ public class FhirPatientService {
   public String getPatientDiagnosticReport(String path) {
     DiagnosticReportMap patientMap = new DiagnosticReportMap(fhirRepository.getResponse(path));
     DiagnosticReport diagnosticReport = patientMap.getDiagnosticReport();
-    return diagnosticReport == null ? "{}" : ourCtx.newJsonParser().encodeResourceToString(diagnosticReport);
+    return diagnosticReport == null ? "{}" : fhirContext.newJsonParser().encodeResourceToString(diagnosticReport);
   }
 
   public List<DiagnosticReportRecord> getPatientDiagnosticReports(String path) {
@@ -108,7 +110,7 @@ public class FhirPatientService {
 
     if(diagnosticReports != null) {
       diagnosticReports.stream()
-              .map(diagnosticReport -> ourCtx.newJsonParser().encodeResourceToString(diagnosticReport))
+              .map(diagnosticReport -> fhirContext.newJsonParser().encodeResourceToString(diagnosticReport))
               .forEach(s -> array.put(new JSONObject(s)));
     }
     return array.toString();
@@ -117,6 +119,15 @@ public class FhirPatientService {
   public String getImagingStudy(String path) {
     ImagingStudyMap imagingStudyMap = new ImagingStudyMap(fhirRepository.getResponse(path));
     ImagingStudy imagingStudy = imagingStudyMap.getImagingStudy();
-    return imagingStudy == null ? "{}" : ourCtx.newJsonParser().encodeResourceToString(imagingStudy);
+    return imagingStudy == null ? "{}" : fhirContext.newJsonParser().encodeResourceToString(imagingStudy);
+  }
+
+  public void createDiagnosticReport(String patientID) {
+    DiagnosticReportBuilder builder = new DiagnosticReportBuilder();
+    DiagnosticReport diagnosticReport = builder.build(patientID);
+
+    MethodOutcome outcome = fhirRepository.createDiagnosticReport(diagnosticReport);
+
+    log.debug("created diagnosticReport: {}", outcome.getCreated());
   }
 }
