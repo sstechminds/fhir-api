@@ -21,7 +21,7 @@ import org.hl7.fhir.r4.model.Reference;
  */
 public class DiagnosticReportBuilder {
 
-    public DiagnosticReport build(String patientID) {
+    public DiagnosticReport build(String patientID, String analyticResults) {
         DiagnosticReport dr = new DiagnosticReport();
         dr.setId(UUID.randomUUID().toString());
 
@@ -93,7 +93,7 @@ public class DiagnosticReportBuilder {
 //        specimens.add(specimenRef);
 //        dr.setSpecimen(specimens);
 
-        dr.setConclusion("conclusion");
+        dr.setConclusion(analyticResults);
 
         return dr;
     }

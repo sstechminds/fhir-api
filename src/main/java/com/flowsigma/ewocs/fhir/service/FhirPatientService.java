@@ -122,9 +122,9 @@ public class FhirPatientService {
     return imagingStudy == null ? "{}" : fhirContext.newJsonParser().encodeResourceToString(imagingStudy);
   }
 
-  public void createDiagnosticReport(String patientID) {
+  public void createDiagnosticReport(String patientID, String analyticResults) {
     DiagnosticReportBuilder builder = new DiagnosticReportBuilder();
-    DiagnosticReport diagnosticReport = builder.build(patientID);
+    DiagnosticReport diagnosticReport = builder.build(patientID, analyticResults);
 
     MethodOutcome outcome = fhirRepository.createDiagnosticReport(diagnosticReport);
 

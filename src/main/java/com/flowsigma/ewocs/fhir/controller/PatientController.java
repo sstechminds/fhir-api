@@ -54,7 +54,8 @@ class PatientController {
 
 	@PostMapping(value = "/patient/{patientId}/diagnosticreport")
 	public ResponseEntity<Void> createDiagnosticReport(@PathVariable String patientId) {
-		fhirPatientService.createDiagnosticReport(patientId);
+		String analyticResults = "FlowSIGMA workflow analytic results.";
+		fhirPatientService.createDiagnosticReport(patientId, analyticResults);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

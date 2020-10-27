@@ -15,12 +15,12 @@ class DiagnosticReportBuilderTest {
   @Test
   void build() {
 
-    DiagnosticReport diagnosticReport = builder.build("siimravi2");
+    DiagnosticReport diagnosticReport = builder.build("siimravi2", "analytic results");
 
-    assertFalse(!diagnosticReport.getSubject().getReference().contains("Patient/siimravi2"));
+    assertTrue(diagnosticReport.getSubject().getReference().contains("Patient/siimravi2"));
+    assertEquals("analytic results", diagnosticReport.getConclusion());
 
     String reportJson = ctx.newJsonParser().encodeResourceToString(diagnosticReport);
-
-    assertFalse(!reportJson.contains("Patient/siimravi2"));
+    assertTrue(reportJson.contains("Patient/siimravi2"));
   }
 }
