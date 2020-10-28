@@ -47,7 +47,11 @@ public class FhirPatientService {
     return patientMap.getPatientRecords();
   }
 
-  public List<ServiceRequest> getDiagnosticOrders(String path) {
+  public List<ServiceRequest> getDiagnosticOrders(String relativeUri) {
+    return fhirRepository.search(relativeUri);
+  }
+
+  public List<ServiceRequest> getDiagnosticOrders() {
     return fhirRepository.search(ServiceRequest.class);
   }
 
