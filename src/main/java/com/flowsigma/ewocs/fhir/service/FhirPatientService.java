@@ -24,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.r4.model.Condition;
 import org.hl7.fhir.r4.model.DiagnosticReport;
 import org.hl7.fhir.r4.model.ImagingStudy;
+import org.hl7.fhir.r4.model.Patient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,10 @@ public class FhirPatientService {
   public FhirPatientService(FhirRepository fhirRepository) {
     this.fhirRepository = fhirRepository;
     this.fhirContext = FhirContext.forR4();
+  }
+
+  public Patient getPatient(String path) {
+      return fhirRepository.fetchResource(Patient.class, path);
   }
 
   public List<PatientRecord> getPatients(String path) {

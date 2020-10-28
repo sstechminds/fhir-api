@@ -1,5 +1,7 @@
 package com.flowsigma.ewocs.fhir.controller;
 
+import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.parser.IParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowsigma.ewocs.fhir.model.DiagnosticOrderRecord;
@@ -9,6 +11,8 @@ import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.hl7.fhir.instance.model.api.IBaseResource;
+import org.hl7.fhir.r4.model.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,9 +31,11 @@ class PatientController {
 
 	private FhirPatientService fhirPatientService;
 	private ObjectMapper objectMapper;
+	private FhirContext fhirContext;
 
 	public PatientController(FhirPatientService fhirPatientService) {
 		this.fhirPatientService = fhirPatientService;
+		this.fhirContext = FhirContext.forR4();
 		this.objectMapper = new ObjectMapper();
 	}
 
@@ -40,6 +46,15 @@ class PatientController {
 		List<PatientRecord> patients = fhirPatientService.getPatients("Patient");
 
 		return new ResponseEntity<>(patients, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/patient/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> getPatient(@PathVariable("id") String id) {
+		log.info("getPatient");
+		Patient patient = fhirPatientService.getPatient("Patient/" + id);
+
+		return new ResponseEntity<>(fhirSerialization(patient), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/patient/{patientId}/diagnosticorder", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -98,6 +113,13 @@ class PatientController {
 		List<PatientDiagnosticReportRecord> pdrrs = drrs.stream().map(dr -> new PatientDiagnosticReportRecord(patientId, dr)).collect(Collectors.toList());
 
 		return new ResponseEntity<>(serialize(pdrrs), HttpStatus.OK);
+	}
+
+	private <T extends IBaseResource> String fhirSerialization(T resource) {
+		IParser jsonParser = fhirContext.newJsonParser();
+		jsonParser.setPrettyPrint(true);
+
+		return jsonParser.encodeResourceToString(resource);
 	}
 
 	private String serialize(List<?> nonFhirResource) {
