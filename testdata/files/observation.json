@@ -1,6 +1,6 @@
 {
   "resourceType": "Observation",
-  "id": "ekg",
+  "id": "siimravi2observation",
   "meta": {
     "versionId": "1",
     "lastUpdated": "2020-10-27T16:30:40.355+00:00"

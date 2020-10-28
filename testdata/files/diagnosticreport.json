@@ -1,6 +1,6 @@
 {
   "resourceType": "DiagnosticReport",
-  "id": "98e94aaf-5bbb-4ee5-b034-36ad51b7bdc9",
+  "id": "siimravi2diagnosticreport",
   "meta": {
     "versionId": "1"
   },
@@ -34,7 +34,7 @@
   } ],
 
   "result": [ {
-    "reference": "Observation/sample02ob03",
+    "reference": "Observation/siimravi2observation",
     "display": "FlowSIGMA DICOM analytic results"
   } ],
   "imagingStudy": [ {
