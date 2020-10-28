@@ -1,6 +1,8 @@
 package com.flowsigma.ewocs.fhir.repository;
 
 import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.okhttp.client.OkHttpRestfulClientFactory;
+import ca.uhn.fhir.rest.api.EncodingEnum;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 import ca.uhn.fhir.rest.client.interceptor.AdditionalRequestHeadersInterceptor;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +30,13 @@ public class FhirRestClient {
 
     //fhirContext.getRestfulClientFactory().setServerValidationMode(ServerValidationModeEnum.NEVER);
 
+    // Use OkHttp instead of default apache HttpClient as is not supported on Android!
+    fhirContext.setRestfulClientFactory(new OkHttpRestfulClientFactory(fhirContext));
+
     IGenericClient client = fhirContext.newRestfulGenericClient(fhirHostUrl);
+    client.setLogRequestAndResponse( true ); // turn off in production //TODO: Use LoggingInterceptor
+    client.setPrettyPrint( true ); // turn off in production
+    client.setEncoding( EncodingEnum.JSON );
 
     // https://smilecdr.com/hapi-fhir/docs/interceptors/built_in_client_interceptors.html
     AdditionalRequestHeadersInterceptor interceptor = new AdditionalRequestHeadersInterceptor();
