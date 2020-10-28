@@ -57,6 +57,11 @@ public class PatientControllerTest {
         // .andExpect(content().string(objectMapper.writeValueAsString(patientRecords)))
         // .andExpect(jsonPath("$[?(@.id == 1)]", is("1")))
         // .andDo(print())
+        .andDo(result -> {
+          String json = result.getResponse().getContentAsString();
+          List list = new ObjectMapper().readValue(json, List.class);
+          assert list.size() == 1;
+        })
         .andReturn();
 
     String expectedResponseBody = "[{\"id\":\"1\",\"name\":\"Ravi\",\"gender\":\"M\",\"birthDate\":\"01-01-2020\"}]";
