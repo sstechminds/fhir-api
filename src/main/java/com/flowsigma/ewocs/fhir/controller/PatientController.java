@@ -1,18 +1,16 @@
 package com.flowsigma.ewocs.fhir.controller;
 
 import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.parser.IParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flowsigma.ewocs.fhir.model.DiagnosticOrderRecord;
 import com.flowsigma.ewocs.fhir.model.DiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientDiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
+import com.flowsigma.ewocs.fhir.util.SerDe;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.Patient;
+import org.hl7.fhir.r4.model.ServiceRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -54,15 +52,15 @@ class PatientController {
 		log.info("getPatient");
 		Patient patient = fhirPatientService.getPatient("Patient/" + id);
 
-		return new ResponseEntity<>(fhirSerialization(patient), HttpStatus.OK);
+		return new ResponseEntity<>(SerDe.fhirSerialization(patient), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/patient/{patientId}/diagnosticorder", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<DiagnosticOrderRecord>> getDiagnosticOrders(@PathVariable String patientId) {
-		List<DiagnosticOrderRecord> orders = fhirPatientService.getDiagnosticOrders("ServiceRequest?patient=" + patientId);
+	public ResponseEntity<String> getDiagnosticOrders(@PathVariable String patientId) {
+		List<ServiceRequest> orders = fhirPatientService.getDiagnosticOrders("ServiceRequest?patient=" + patientId);
 
-		return new ResponseEntity<>(orders, HttpStatus.OK);
+		return new ResponseEntity<>(SerDe.fhirSerialization(orders), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/patient/{patientId}/diagnosticreport")
@@ -95,7 +93,7 @@ class PatientController {
 													@RequestParam(name = "issuedate", required = false) String issueDate) {
 		List<DiagnosticReportRecord> drs = fhirPatientService.getPatientDiagnosticReports("DiagnosticReport?patient=" + patientId, issueDate);
 
-		return new ResponseEntity<>(serialize(drs), HttpStatus.OK);
+		return new ResponseEntity<>(SerDe.serialize(drs), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/diagnosticreport/{reportId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -112,21 +110,6 @@ class PatientController {
 		List<DiagnosticReportRecord> drrs = fhirPatientService.getPatientDiagnosticReports("DiagnosticReport?patient=" + patientId);
 		List<PatientDiagnosticReportRecord> pdrrs = drrs.stream().map(dr -> new PatientDiagnosticReportRecord(patientId, dr)).collect(Collectors.toList());
 
-		return new ResponseEntity<>(serialize(pdrrs), HttpStatus.OK);
-	}
-
-	private <T extends IBaseResource> String fhirSerialization(T resource) {
-		IParser jsonParser = fhirContext.newJsonParser();
-		jsonParser.setPrettyPrint(true);
-
-		return jsonParser.encodeResourceToString(resource);
-	}
-
-	private String serialize(List<?> nonFhirResource) {
-		try {
-			return objectMapper.writeValueAsString(nonFhirResource);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
+		return new ResponseEntity<>(SerDe.serialize(pdrrs), HttpStatus.OK);
 	}
 }
