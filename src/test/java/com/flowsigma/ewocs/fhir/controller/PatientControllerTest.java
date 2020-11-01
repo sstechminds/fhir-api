@@ -1,22 +1,29 @@
 package com.flowsigma.ewocs.fhir.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -54,13 +61,15 @@ public class PatientControllerTest {
 
     MvcResult mvcResult = mockMvc.perform(get("/patient"))
         .andExpect(status().isOk())
-        // .andExpect(content().string(objectMapper.writeValueAsString(patientRecords)))
-        // .andExpect(jsonPath("$[?(@.id == 1)]", is("1")))
-        // .andDo(print())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$", hasSize(1)))
+        .andExpect(jsonPath("$[0].id", is("1")))
         .andDo(result -> {
           String json = result.getResponse().getContentAsString();
-          List list = new ObjectMapper().readValue(json, List.class);
+          TypeReference<List<Map<String, Object>>> typeRef = new TypeReference<List<Map<String, Object>>>() {};
+          List<Map<String, Object>> list = new ObjectMapper().readValue(json, typeRef);
           assert list.size() == 1;
+          assert list.get(0).get("id").equals("1");
         })
         .andReturn();
 
