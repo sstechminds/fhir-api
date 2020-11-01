@@ -55,9 +55,12 @@ public class FhirPatientService {
     return fhirRepository.search(ServiceRequest.class);
   }
 
+  public List<ServiceRequest> getTodaysDiagnosticOrders() {
+    return fhirRepository.searchTodaysDiagnosticOrders(ServiceRequest.class);
+  }
+
 //  public List<DiagnosticOrderRecord> getDiagnosticOrders(String path) {
 //    DiagnosticRecordMap diagnosticRecordMap = new DiagnosticRecordMap(fhirRepository.getResponse(path));
-//
 //    return diagnosticRecordMap.getDiagnosticRecords();
 //  }
 

@@ -4,15 +4,16 @@ import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 import ca.uhn.fhir.rest.server.exceptions.BaseServerResponseException;
-import java.net.URL;
+import com.flowsigma.ewocs.fhir.util.DateUtil;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent;
 import org.hl7.fhir.r4.model.DiagnosticReport;
-import org.hl7.fhir.r4.model.Patient;
+import org.hl7.fhir.r4.model.ServiceRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -65,8 +66,27 @@ public class FhirRepository {
     return theResources;
   }
 
+  public <T extends IBaseResource> List<T> searchTodaysDiagnosticOrders(Class<T> theClass) {
+    Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.DATE, -1);
+
+    Bundle bundle = fhirGenericClient.search()
+        .forResource(theClass)
+        .where(ServiceRequest.OCCURRENCE.after().day(DateUtil.dateFromUTC(cal.getTime())))
+        .returnBundle(Bundle.class)
+        .execute();
+    log.debug("results: {}", bundle.toString());
+
+    List<T> theResources = new ArrayList<>();
+    for (BundleEntryComponent entry : bundle.getEntry()) {
+      theResources.add((T) entry.getResource());
+    }
+    return theResources;
+  }
+
   public <T extends IBaseResource> List<T> search(Class<T> theClass) {
-    Bundle bundle = fhirGenericClient.search().forResource(theClass)
+    Bundle bundle = fhirGenericClient.search()
+        .forResource(theClass)
         //.where(Patient.INCLUDE_LINK.matches().value( "Jason"))
         //.where( Patient.FAMILY.matches().value( "Argonaut"))
         .returnBundle(Bundle.class)

@@ -64,6 +64,8 @@ class PatientController {
 	@ResponseBody
 	public ResponseEntity<String> getDiagnosticOrders(@PathVariable String patientId) {
 		List<ServiceRequest> orders = fhirPatientService.getDiagnosticOrders("ServiceRequest?patient=" + patientId);
+//		List<ServiceRequest> orders = fhirPatientService.getDiagnosticOrders();
+//		List<ServiceRequest> orders = fhirPatientService.getTodaysDiagnosticOrders();
 
 		return new ResponseEntity<>(SerDe.fhirSerialization(orders), HttpStatus.OK);
 	}
@@ -74,22 +76,6 @@ class PatientController {
 		fhirPatientService.createDiagnosticReport(patientId, analyticResults);
 
 		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
-	@GetMapping(value = "/patient/{patientId}/condition", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public ResponseEntity<String> getCondition(@PathVariable String patientId) {
-		String conditions = fhirPatientService.getPatientCondition("Condition?patient=" + patientId);
-
-		return new ResponseEntity<>(conditions, HttpStatus.OK);
-	}
-
-	@GetMapping(value = "/imagingstudy/{studyId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public ResponseEntity<String> getPatientImageStudy(@PathVariable String studyId) {
-		String imagingStudy= fhirPatientService.getImagingStudy("ImagingStudy?_id=" + studyId);
-
-		return new ResponseEntity<>(imagingStudy, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/patient/{patientId}/diagnosticreport", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -116,5 +102,21 @@ class PatientController {
 		List<PatientDiagnosticReportRecord> pdrrs = drrs.stream().map(dr -> new PatientDiagnosticReportRecord(patientId, dr)).collect(Collectors.toList());
 
 		return new ResponseEntity<>(SerDe.serialize(pdrrs), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/patient/{patientId}/condition", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> getCondition(@PathVariable String patientId) {
+		String conditions = fhirPatientService.getPatientCondition("Condition?patient=" + patientId);
+
+		return new ResponseEntity<>(conditions, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/imagingstudy/{studyId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> getPatientImageStudy(@PathVariable String studyId) {
+		String imagingStudy= fhirPatientService.getImagingStudy("ImagingStudy?_id=" + studyId);
+
+		return new ResponseEntity<>(imagingStudy, HttpStatus.OK);
 	}
 }
