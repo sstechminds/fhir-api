@@ -9,6 +9,7 @@ import com.flowsigma.ewocs.fhir.service.FhirPatientService;
 import com.flowsigma.ewocs.fhir.util.SerDe;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.ServiceRequest;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,6 +87,17 @@ class PatientController {
 		List<DiagnosticReportRecord> drs = fhirPatientService.getPatientDiagnosticReports("DiagnosticReport?patient=" + patientId, issueDate);
 
 		return new ResponseEntity<>(SerDe.serialize(drs), HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/diagnosticreport")
+	public ResponseEntity<Void> createDiagnosticReport(@RequestBody DiagnosticReportRequest request) {
+		String analyticResults = "FlowSIGMA workflow analytic results.";
+		if(StringUtils.isBlank(request.getFilePath())) {
+			fhirPatientService.createDiagnosticReport(request.getFilePath(), analyticResults);
+		} else {
+			fhirPatientService.createDiagnosticReport(request.getDicomTags(), analyticResults);
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/diagnosticreport/{reportId}", produces = MediaType.APPLICATION_JSON_VALUE)

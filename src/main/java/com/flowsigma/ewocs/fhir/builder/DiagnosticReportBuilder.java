@@ -1,5 +1,6 @@
 package com.flowsigma.ewocs.fhir.builder;
 
+import com.flowsigma.ewocs.fhir.model.DicomTags;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import org.hl7.fhir.r4.model.Reference;
  */
 public class DiagnosticReportBuilder {
 
-    public DiagnosticReport build(String patientID, String analyticResults) {
+    public DiagnosticReport build(DicomTags dicomTags, String analyticResults) {
         DiagnosticReport dr = new DiagnosticReport();
         dr.setId(UUID.randomUUID().toString());
 
@@ -60,7 +61,7 @@ public class DiagnosticReportBuilder {
         cc.setText("CT Chest");
         dr.setCode(cc);
         
-        dr.setSubject(new Reference("Patient/" + patientID));
+        dr.setSubject(new Reference("Patient/" + dicomTags.getPatientID()));
         dr.setEffective(new DateTimeType(new Date()));
         dr.setIssued(getCurrentUTCDate());
 

@@ -1,10 +1,11 @@
 package com.flowsigma.ewocs.fhir.builder;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ca.uhn.fhir.context.FhirContext;
+import com.flowsigma.ewocs.fhir.model.DicomTags;
 import org.hl7.fhir.r4.model.DiagnosticReport;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class DiagnosticReportBuilderTest {
@@ -15,7 +16,10 @@ class DiagnosticReportBuilderTest {
   @Test
   void build() {
 
-    DiagnosticReport diagnosticReport = builder.build("siimravi2", "analytic results");
+    DicomTags dicomTags = new DicomTags();
+    dicomTags.setPatientID("siimravi2");
+
+    DiagnosticReport diagnosticReport = builder.build(dicomTags, "analytic results");
 
     assertTrue(diagnosticReport.getSubject().getReference().contains("Patient/siimravi2"));
     assertEquals("analytic results", diagnosticReport.getConclusion());

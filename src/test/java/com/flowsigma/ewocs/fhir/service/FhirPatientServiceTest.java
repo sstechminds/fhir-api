@@ -3,6 +3,7 @@ package com.flowsigma.ewocs.fhir.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import com.flowsigma.ewocs.fhir.dicom.DicomTagBuilder;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.repository.FhirRepository;
 import com.google.gson.Gson;
@@ -23,12 +24,13 @@ class FhirPatientServiceTest {
     Resource patientsFileResource = new ClassPathResource("testdata/patients.json");
 
     @Mock private FhirRepository fhirRepository;
+    @Mock private DicomTagBuilder dicomTagBuilder;
 
     private FhirPatientService helloService;
 
     @BeforeEach
     void setMockOutput() throws IOException {
-        helloService = new FhirPatientService(fhirRepository);
+        helloService = new FhirPatientService(fhirRepository, dicomTagBuilder);
 
         File patientsFile = patientsFileResource.getFile();
         Object patients = gson.fromJson(new FileReader(patientsFile), Object.class);

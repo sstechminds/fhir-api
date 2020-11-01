@@ -5,6 +5,7 @@ import static com.flowsigma.ewocs.fhir.util.DateUtil.formatToLocalDate;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import com.flowsigma.ewocs.fhir.builder.DiagnosticReportBuilder;
+import com.flowsigma.ewocs.fhir.dicom.DicomTagBuilder;
 import com.flowsigma.ewocs.fhir.model.DiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.model.mapper.DiagnosticReportMap;
@@ -18,6 +19,7 @@ import com.flowsigma.ewocs.fhir.util.SerDe;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.r4.model.Condition;
@@ -25,6 +27,7 @@ import org.hl7.fhir.r4.model.DiagnosticReport;
 import org.hl7.fhir.r4.model.ImagingStudy;
 import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.ServiceRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -32,9 +35,11 @@ import org.springframework.stereotype.Service;
 public class FhirPatientService {
   private FhirContext fhirContext;
   private FhirRepository fhirRepository;
+  private DicomTagBuilder dicomTagBuilder;
 
-  public FhirPatientService(FhirRepository fhirRepository) {
+  public FhirPatientService(FhirRepository fhirRepository, DicomTagBuilder dicomTagBuilder) {
     this.fhirRepository = fhirRepository;
+    this.dicomTagBuilder = dicomTagBuilder;
     this.fhirContext = FhirContext.forR4();
   }
 
@@ -118,9 +123,20 @@ public class FhirPatientService {
     return imagingStudy == null ? "{}" : fhirContext.newJsonParser().encodeResourceToString(imagingStudy);
   }
 
-  public void createDiagnosticReport(String patientID, String analyticResults) {
+  public void createDiagnosticReport(String filePath, String analyticResults) {
     DiagnosticReportBuilder builder = new DiagnosticReportBuilder();
-    DiagnosticReport diagnosticReport = builder.build(patientID, analyticResults);
+
+    DiagnosticReport diagnosticReport = builder.build(dicomTagBuilder.build(filePath), analyticResults);
+
+    MethodOutcome outcome = fhirRepository.createDiagnosticReport(diagnosticReport);
+
+    log.debug("created diagnosticReport: {}", outcome.getCreated());
+  }
+
+  public void createDiagnosticReport(Map<Object, Object> dicomTags, String analyticResults) {
+    DiagnosticReportBuilder builder = new DiagnosticReportBuilder();
+
+    DiagnosticReport diagnosticReport = builder.build(dicomTagBuilder.build(dicomTags), analyticResults);
 
     MethodOutcome outcome = fhirRepository.createDiagnosticReport(diagnosticReport);
 
