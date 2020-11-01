@@ -5,33 +5,32 @@ import static org.mockito.Mockito.when;
 
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.repository.FhirRepository;
-import com.flowsigma.ewocs.fhir.util.FileResourcesUtils;
 import com.google.gson.Gson;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 @SpringBootTest
 class FhirPatientServiceTest {
+    Gson gson = new Gson();
+    Resource patientsFileResource = new ClassPathResource("testdata/patients.json");
 
-    @Mock
-    private FhirRepository fhirRepository;
+    @Mock private FhirRepository fhirRepository;
 
     private FhirPatientService helloService;
 
-    Gson gson = new Gson();
-
-    File patientsFile = new FileResourcesUtils().getFileAsStringFromResource("testdata/patients.json");
-
     @BeforeEach
-    void setMockOutput() throws FileNotFoundException {
+    void setMockOutput() throws IOException {
         helloService = new FhirPatientService(fhirRepository);
 
+        File patientsFile = patientsFileResource.getFile();
         Object patients = gson.fromJson(new FileReader(patientsFile), Object.class);
         when(fhirRepository.getResponse("/patient")).thenReturn(gson.toJson(patients));
     }

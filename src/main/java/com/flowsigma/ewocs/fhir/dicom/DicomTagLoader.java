@@ -1,4 +1,4 @@
-package com.flowsigma.ewocs.fhir.util;
+package com.flowsigma.ewocs.fhir.dicom;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +14,9 @@ import org.dcm4che2.io.StopTagInputHandler;
  * @see DicomInputStream
  * @see DicomObject
  */
-public class TagLoader {
+public class DicomTagLoader {
     /**
-     * Load tags upto the image data from a file.
+     * Load tags, upto the image data, from a file.
      *
      * @param inFile file to load
      * @return DICOM tags
