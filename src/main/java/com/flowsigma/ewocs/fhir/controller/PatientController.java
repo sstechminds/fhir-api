@@ -55,6 +55,11 @@ class PatientController {
 		return new ResponseEntity<>(SerDe.fhirSerialization(patient), HttpStatus.OK);
 	}
 
+	/**
+	 * http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.4.12.html
+	 * @param patientId
+	 * @return
+	 */
 	@GetMapping(value = "/patient/{patientId}/diagnosticorder", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> getDiagnosticOrders(@PathVariable String patientId) {
