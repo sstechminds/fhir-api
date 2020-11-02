@@ -123,7 +123,7 @@ public class FhirPatientService {
     return imagingStudy == null ? "{}" : fhirContext.newJsonParser().encodeResourceToString(imagingStudy);
   }
 
-  public void createDiagnosticReport(String filePath, String analyticResults) {
+  public String createDiagnosticReport(String filePath, String analyticResults) {
     DiagnosticReportBuilder builder = new DiagnosticReportBuilder();
 
     DiagnosticReport diagnosticReport = builder.build(dicomTagBuilder.build(filePath), analyticResults);
@@ -131,9 +131,11 @@ public class FhirPatientService {
     MethodOutcome outcome = fhirRepository.createDiagnosticReport(diagnosticReport);
 
     log.debug("created diagnosticReport: {}", outcome.getCreated());
+
+    return outcome.getId().getValue();
   }
 
-  public void createDiagnosticReport(Map<Object, Object> dicomTags, String analyticResults) {
+  public String createDiagnosticReport(Map<Object, Object> dicomTags, String analyticResults) {
     DiagnosticReportBuilder builder = new DiagnosticReportBuilder();
 
     DiagnosticReport diagnosticReport = builder.build(dicomTagBuilder.build(dicomTags), analyticResults);
@@ -141,5 +143,7 @@ public class FhirPatientService {
     MethodOutcome outcome = fhirRepository.createDiagnosticReport(diagnosticReport);
 
     log.debug("created diagnosticReport: {}", outcome.getCreated());
+
+    return outcome.getId().getValue();
   }
 }

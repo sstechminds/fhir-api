@@ -7,6 +7,7 @@ import com.flowsigma.ewocs.fhir.model.PatientDiagnosticReportRecord;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
 import com.flowsigma.ewocs.fhir.util.SerDe;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +15,7 @@ import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.ServiceRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -89,15 +91,26 @@ class PatientController {
 		return new ResponseEntity<>(SerDe.serialize(drs), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/diagnosticreport")
-	public ResponseEntity<Void> createDiagnosticReport(@RequestBody DiagnosticReportRequest request) {
-		String analyticResults = "FlowSIGMA workflow analytic results.";
+	@PostMapping(value = "/diagnosticreport",
+			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> createDiagnosticReport(@RequestBody DiagnosticReportRequest request) {
+    String response;
+	  String analyticResults = "FlowSIGMA workflow analytic results.";
 		if(StringUtils.isBlank(request.getFilePath())) {
-			fhirPatientService.createDiagnosticReport(request.getFilePath(), analyticResults);
+      response  = fhirPatientService.createDiagnosticReport(request.getDicomTags(), analyticResults);
 		} else {
-			fhirPatientService.createDiagnosticReport(request.getDicomTags(), analyticResults);
+			String filePath = getFileClassPath(request);
+			response = fhirPatientService.createDiagnosticReport(filePath, analyticResults);
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	private String getFileClassPath(DiagnosticReportRequest request) {
+		try {
+			return new ClassPathResource(request.getFilePath()).getFile().getPath();
+		} catch (IOException e) {
+			throw new IllegalArgumentException("File not found in the path.");
+		}
 	}
 
 	@GetMapping(value = "/diagnosticreport/{reportId}", produces = MediaType.APPLICATION_JSON_VALUE)

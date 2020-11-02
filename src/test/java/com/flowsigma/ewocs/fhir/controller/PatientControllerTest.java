@@ -3,8 +3,11 @@ package com.flowsigma.ewocs.fhir.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -16,7 +19,6 @@ import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -36,7 +38,7 @@ public class PatientControllerTest {
 
   //https://github.com/thombergs/code-examples/blob/master/spring-boot/spring-boot-testing/src/test/java/io/reflectoring/testing/web/RegisterRestControllerTest.java
   @Test
-  void getPatients_no_patients_found() throws Exception {
+  void testGetPatients_no_patients_found() throws Exception {
     when(fhirPatientService.getPatients("Patient")).thenReturn(Collections.emptyList());
 
     mockMvc.perform(get("/patient"))
@@ -46,7 +48,7 @@ public class PatientControllerTest {
   }
 
   @Test
-  void getPatients() throws Exception {
+  void testGetPatients() throws Exception {
     List<PatientRecord> patientRecords = new ArrayList<>();
 
     PatientRecord patientRecord = new PatientRecord();
@@ -76,6 +78,22 @@ public class PatientControllerTest {
     String expectedResponseBody = "[{\"id\":\"1\",\"name\":\"Ravi\",\"gender\":\"M\",\"birthDate\":\"01-01-2020\"}]";
     String actualResponseBody = mvcResult.getResponse().getContentAsString();
     assertThat(actualResponseBody).isEqualToIgnoringWhitespace(expectedResponseBody);
+  }
+
+  @Test
+  void testCreateDiagnosticReport() throws Exception {
+    String filePath = "dicom/ImageWithAccession.dcm";
+    when(fhirPatientService.createDiagnosticReport(eq(filePath), anyString())).thenReturn("reportId");
+
+    DiagnosticReportRequest request = new DiagnosticReportRequest();
+    request.setFilePath(filePath);
+    String payload = new ObjectMapper().writeValueAsString(request);
+
+    mockMvc.perform(post("/diagnosticreport")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(payload))
+        .andExpect(status().isOk())
+        .andExpect(content().string("reportId"));
   }
 
   @Test

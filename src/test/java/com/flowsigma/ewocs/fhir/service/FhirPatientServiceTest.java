@@ -21,7 +21,7 @@ import org.springframework.core.io.Resource;
 @SpringBootTest
 class FhirPatientServiceTest {
     Gson gson = new Gson();
-    Resource patientsFileResource = new ClassPathResource("testdata/patients.json");
+    Resource patientsFileResource = new ClassPathResource("fhir/patients.json");
 
     @Mock private FhirRepository fhirRepository;
     @Mock private DicomTagBuilder dicomTagBuilder;

@@ -3,6 +3,8 @@ package com.flowsigma.ewocs.fhir.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.flowsigma.ewocs.fhir.controller.DiagnosticReportRequest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.json.JSONException;
@@ -71,5 +73,21 @@ class ApiIntTest {
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
 		assertTrue(response.getBody().contains("36572-6"));
+	}
+
+	@Test
+	void testCreateDiagnosticReport() throws URISyntaxException, JsonProcessingException {
+		final String baseUrl = "http://localhost:"+randomServerPort+"/diagnosticreport";
+		URI uri = new URI(baseUrl);
+
+		DiagnosticReportRequest request = new DiagnosticReportRequest();
+		String filePath = "dicom/ImageForSiimPatient.dcm";
+		request.setFilePath(filePath);
+
+		ResponseEntity<String> response = restTemplate.postForEntity(uri, request, String.class);
+
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
+		assertTrue(!response.getBody().trim().isEmpty());
 	}
 }

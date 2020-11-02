@@ -15,7 +15,6 @@ class DiagnosticReportBuilderTest {
 
   @Test
   void build() {
-
     DicomTags dicomTags = new DicomTags();
     dicomTags.setPatientID("siimravi2");
 
