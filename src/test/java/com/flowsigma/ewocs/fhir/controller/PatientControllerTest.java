@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowsigma.ewocs.fhir.model.PatientRecord;
 import com.flowsigma.ewocs.fhir.service.FhirPatientService;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -85,7 +86,7 @@ public class PatientControllerTest {
 
   @Test
   void testCreateDiagnosticReport() throws Exception {
-    String filePath = "dicom\\ImageWithAccession.dcm";
+    String filePath = "dicom" + File.separator + "ImageWithAccession.dcm";
     when(fhirPatientService.createDiagnosticReport(anyString(), anyString())).thenReturn("reportId");
 
     DiagnosticReportRequest request = new DiagnosticReportRequest();
