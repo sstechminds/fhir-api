@@ -86,10 +86,10 @@ dependencies {
 //	runtimeOnly 'org.postgresql:postgresql'
 
 	// DCM4CHE
-	implementation "dcm4che:dcm4che-core:2.0.24"
-	implementation "dcm4che:dcm4che-net:2.0.24"
-	implementation "dcm4che:dcm4che-image:2.0.24"
-	implementation "dcm4che:dcm4che-filecache:2.0.24"
+	implementation "dcm4che:dcm4che-core:2.0.29.v20180102_1551"
+	implementation "dcm4che:dcm4che-net:2.0.29.v20180102_1551"
+	implementation "dcm4che:dcm4che-image:2.0.29.v20180102_1551"
+	implementation "dcm4che:dcm4che-filecache:2.0.29.v20180102_1551"
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
