@@ -3,7 +3,6 @@ package com.flowsigma.ewocs.fhir.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flowsigma.ewocs.fhir.controller.DiagnosticReportRequest;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -76,12 +75,12 @@ class ApiIntTest {
 	}
 
 	@Test
-	void testCreateDiagnosticReport() throws URISyntaxException, JsonProcessingException {
+	void testCreateDiagnosticReport() throws URISyntaxException {
 		final String baseUrl = "http://localhost:"+randomServerPort+"/diagnosticreport";
 		URI uri = new URI(baseUrl);
 
 		DiagnosticReportRequest request = new DiagnosticReportRequest();
-		String filePath = "dicom/ImageForSiimPatient.dcm";
+		String filePath = "dicom/covid-1.dcm";
 		request.setFilePath(filePath);
 
 		ResponseEntity<String> response = restTemplate.postForEntity(uri, request, String.class);
