@@ -3,8 +3,10 @@ package com.flowsigma.ewocs.fhir.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -22,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -82,8 +85,8 @@ public class PatientControllerTest {
 
   @Test
   void testCreateDiagnosticReport() throws Exception {
-    String filePath = "dicom/ImageWithAccession.dcm";
-    when(fhirPatientService.createDiagnosticReport(eq(filePath), anyString())).thenReturn("reportId");
+    String filePath = "dicom\\ImageWithAccession.dcm";
+    when(fhirPatientService.createDiagnosticReport(anyString(), anyString())).thenReturn("reportId");
 
     DiagnosticReportRequest request = new DiagnosticReportRequest();
     request.setFilePath(filePath);
@@ -94,6 +97,12 @@ public class PatientControllerTest {
         .content(payload))
         .andExpect(status().isOk())
         .andExpect(content().string("reportId"));
+
+    ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+    verify(fhirPatientService, times(1))
+        .createDiagnosticReport(captor.capture(), anyString());
+
+    assertTrue(captor.getValue().endsWith(filePath));
   }
 
   @Test
