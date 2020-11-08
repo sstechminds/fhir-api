@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: test
+  fhir:
+    host: "http://hackathon.siim.org/fhir/"
+    apiKey: "dd6f7f1d-1586-438f-8d35-ff589a12f4df"
+  jackson:
+    serialization:
+      indent-output: true
+
+server:
+  port: 8009
+
+logging:
+  file:
+    name: logs/fhir-api.log
+  level:
+    root: ERROR
+    org.springframework.web: ERROR
+    com.flowsigma: DEBUG
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"

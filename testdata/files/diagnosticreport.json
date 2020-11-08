@@ -1,0 +1,50 @@
+{
+  "resourceType": "DiagnosticReport",
+  "id": "siimravi2diagnosticreport",
+  "meta": {
+    "versionId": "1"
+  },
+  "identifier": [ {
+    "use": "usual",
+    "system": "http://flowsigma.com",
+    "value": "2012cec4-dd9f-416c-839e-f64a1016a688"
+  } ],
+  "basedOn": [
+    {
+      "reference": "ServiceRequest/siimravi2diagnosticorder"
+    }
+  ],
+  "status": "final",
+  "category": [ {
+    "coding": [ {
+      "system": "http://hl7.org/fhir/v2/0074",
+      "code": "RAD"
+    } ]
+  } ],
+  "code": {
+    "coding": [ {
+      "system": "http://flowsigma.com",
+      "code": "24627-2"
+    } ],
+    "text": "CT Chest"
+  },
+  "subject": {
+    "reference": "Patient/siimravi2"
+  },
+  "effectiveDateTime": "2020-10-26T20:13:09-05:00",
+  "issued": "2020-10-26T20:13:09.910-05:00",
+  "performer": [ {
+    "reference": "Organization/siim",
+    "display": "Society of Imaging Informatics in Medicine"
+  } ],
+
+  "result": [ {
+    "reference": "Observation/siimravi2observation",
+    "display": "FlowSIGMA DICOM analytic results"
+  } ],
+  "imagingStudy": [ {
+    "reference": "imageStudyRef",
+    "display": "FlowSIGMA DICOM image analytics"
+  } ],
+  "conclusion": "conclusion"
+}

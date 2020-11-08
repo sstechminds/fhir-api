@@ -1,0 +1,983 @@
+{
+  "resourceType": "Bundle",
+  "id": "4867e22d-cd19-455f-9db5-643d5994ad60",
+  "meta": {
+    "lastUpdated": "2020-10-23T02:52:10.266+00:00"
+  },
+  "type": "searchset",
+  "total": 15,
+  "link": [
+    {
+      "relation": "self",
+      "url": "http://hackathon.siim.org/fhir-overview/fhir/Patient"
+    }
+  ],
+  "entry": [
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/siimravi2",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "siimravi2",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:42:52.513+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\r\n  <table>\r\n    <tbody>\r\n      <tr>\r\n        <td>Name</td>\r\n        <td>Ravi SIIM</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Address</td>\r\n        <td>534 Erewhon, Rochester, MD, 53999</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Contacts</td>\r\n        <td>Home: unknown. Work: (03) 5555 6473</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Id</td>\r\n        <td>MRN: LIDC-IDRI-0132 (TCIA)</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>"
+        },
+        "identifier": [
+          {
+            "use": "usual",
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "LIDC-IDRI-0132",
+            "period": {
+              "start": "2001-05-06"
+            },
+            "assigner": {
+              "display": "TCIA"
+            }
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "SIIM",
+            "given": [
+              "Ravi"
+            ]
+          },
+          {
+            "use": "usual",
+            "given": [
+              "Ravi"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "use": "home"
+          },
+          {
+            "system": "phone",
+            "value": "(507) 555 6473",
+            "use": "work"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1941-03-31",
+        "deceasedBoolean": false,
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "534 Erewhon St"
+            ],
+            "city": "Rochester",
+            "state": "MN",
+            "postalCode": "53999"
+          }
+        ],
+        "contact": [
+          {
+            "relationship": [
+              {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/patient-contact-relationship",
+                    "code": "partner"
+                  }
+                ]
+              }
+            ],
+            "name": {
+              "family": "du",
+              "_family": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/Profile/iso-21090#qualifier",
+                    "valueCode": "VV"
+                  }
+                ]
+              },
+              "given": [
+                "Bénédicte"
+              ]
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "+33 (237) 998327"
+              }
+            ]
+          }
+        ],
+        "managingOrganization": {
+          "reference": "Organization/siim"
+        }
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/siimneela",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "siimneela",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:42:52.721+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\r\n  <table>\r\n    <tbody>\r\n      <tr>\r\n        <td>Name</td>\r\n        <td>Neela <b>SIIM</b></td>\r\n      </tr>\r\n      <tr>\r\n        <td>Address</td>\r\n        <td>534 Erewhon, Pleasantville, Vic, 3999</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Contacts</td>\r\n        <td>Home: unknown. Work: (03) 5555 6473</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Id</td>\r\n        <td>MRN: TCGA-BA-4077 (TCIA)</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>"
+        },
+        "identifier": [
+          {
+            "use": "usual",
+            "system": "http://www.siim.org/",
+            "value": "TCGA-BA-4077",
+            "assigner": {
+              "display": "TCIA"
+            }
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "SIIM ",
+            "given": [
+              "Neela"
+            ]
+          },
+          {
+            "use": "usual",
+            "given": [
+              "Neela"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "use": "home"
+          },
+          {
+            "system": "phone",
+            "value": "(035) 555 6473",
+            "use": "work"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1950-04-28",
+        "deceasedBoolean": false,
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "534 Erewhon St"
+            ],
+            "city": "PleasantVille",
+            "state": "Vic",
+            "postalCode": "3999"
+          }
+        ],
+        "contact": [
+          {
+            "relationship": [
+              {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/patient-contact-relationship",
+                    "code": "partner"
+                  }
+                ]
+              }
+            ],
+            "name": {
+              "family": "du",
+              "_family": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/Profile/iso-21090#qualifier",
+                    "valueCode": "VV"
+                  }
+                ]
+              },
+              "given": [
+                "Bénédicte"
+              ]
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "+33 (237) 998327"
+              }
+            ]
+          }
+        ],
+        "managingOrganization": {
+          "reference": "Organization/siim"
+        }
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/siimsally",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "siimsally",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:42:52.864+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\r\n  <table>\r\n    <tbody>\r\n      <tr>\r\n        <td>Name</td>\r\n        <td>Sally <b>SIIM</b></td>\r\n      </tr>\r\n      <tr>\r\n        <td>Address</td>\r\n        <td>534 Erewhon, Rochester, MD, 53999</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Contacts</td>\r\n        <td>Home: unknown. Work: (03) 5555 6473</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Id</td>\r\n        <td>MRN: BreastDx-01-0003 (TCIA)</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>"
+        },
+        "identifier": [
+          {
+            "use": "usual",
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "BreastDx-01-0003",
+            "period": {
+              "start": "2001-05-06"
+            },
+            "assigner": {
+              "display": "TCIA"
+            }
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "SIIM",
+            "given": [
+              "Sally"
+            ]
+          },
+          {
+            "use": "usual",
+            "given": [
+              "Sally"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "use": "home"
+          },
+          {
+            "system": "phone",
+            "value": "(507) 555 6473",
+            "use": "work"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1950-04-12",
+        "deceasedBoolean": false,
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "534 Erewhon St"
+            ],
+            "city": "Rochester",
+            "state": "MN",
+            "postalCode": "53999"
+          }
+        ],
+        "contact": [
+          {
+            "relationship": [
+              {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/patient-contact-relationship",
+                    "code": "partner"
+                  }
+                ]
+              }
+            ],
+            "name": {
+              "family": "du",
+              "_family": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/Profile/iso-21090#qualifier",
+                    "valueCode": "VV"
+                  }
+                ]
+              },
+              "given": [
+                "Bénédicte"
+              ]
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "+33 (237) 998327"
+              }
+            ]
+          }
+        ],
+        "managingOrganization": {
+          "reference": "Organization/siim"
+        }
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/siimjoe",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "siimjoe",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:42:52.984+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\r\n  <table>\r\n    <tbody>\r\n      <tr>\r\n        <td>Name</td>\r\n        <td>Jim <b>SIIM</b></td>\r\n      </tr>\r\n      <tr>\r\n        <td>Address</td>\r\n        <td>534 Erewhon, Pleasantville, Vic, 3999</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Contacts</td>\r\n        <td>Home: unknown. Work: (03) 5555 6473</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Id</td>\r\n        <td>MRN: TCGA-17-Z058 (TCIA)</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>"
+        },
+        "identifier": [
+          {
+            "use": "usual",
+            "system": "http://www.siim.org/",
+            "value": "TCGA-17-Z058",
+            "assigner": {
+              "display": "TCIA"
+            }
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "SIIM ",
+            "given": [
+              "Joe"
+            ]
+          },
+          {
+            "use": "usual",
+            "given": [
+              "Joe"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "use": "home"
+          },
+          {
+            "system": "phone",
+            "value": "(035) 555 6473",
+            "use": "work"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1926-03-30",
+        "deceasedBoolean": false,
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "534 Erewhon St"
+            ],
+            "city": "PleasantVille",
+            "state": "Vic",
+            "postalCode": "3999"
+          }
+        ],
+        "contact": [
+          {
+            "relationship": [
+              {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/patient-contact-relationship",
+                    "code": "partner"
+                  }
+                ]
+              }
+            ],
+            "name": {
+              "family": "du",
+              "_family": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/Profile/iso-21090#qualifier",
+                    "valueCode": "VV"
+                  }
+                ]
+              },
+              "given": [
+                "Bénédicte"
+              ]
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "+33 (237) 998327"
+              }
+            ]
+          }
+        ],
+        "managingOrganization": {
+          "reference": "Organization/siim"
+        }
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/siimandy",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "siimandy",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:42:53.105+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\r\n  <table>\r\n    <tbody>\r\n      <tr>\r\n        <td>Name</td>\r\n        <td>Andy SIIM</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Address</td>\r\n        <td>534 Erewhon, Rochester, MD, 53999</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Contacts</td>\r\n        <td>Home: unknown. Work: (03) 5555 6473</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Id</td>\r\n        <td>MRN: TCGA-50-5072 (TCIA)</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>"
+        },
+        "identifier": [
+          {
+            "use": "usual",
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "TCGA-50-5072",
+            "period": {
+              "start": "2001-05-06"
+            },
+            "assigner": {
+              "display": "TCIA"
+            }
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "SIIM",
+            "given": [
+              "Andy"
+            ]
+          },
+          {
+            "use": "usual",
+            "given": [
+              "Andy"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "use": "home"
+          },
+          {
+            "system": "phone",
+            "value": "(507) 555 6473",
+            "use": "work"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1926-04-01",
+        "deceasedBoolean": false,
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "534 Erewhon St"
+            ],
+            "city": "Rochester",
+            "state": "MN",
+            "postalCode": "53999"
+          }
+        ],
+        "contact": [
+          {
+            "relationship": [
+              {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/patient-contact-relationship",
+                    "code": "partner"
+                  }
+                ]
+              }
+            ],
+            "name": {
+              "family": "du",
+              "given": [
+                "Bénédicte"
+              ]
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "+33 (237) 998327"
+              }
+            ]
+          }
+        ],
+        "managingOrganization": {
+          "reference": "Organization/siim"
+        }
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/SHC001",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "SHC001",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:43:08.446+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">ONE CT <b>HEMATOMA </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>SHC001</td></tr><tr><td>Date of birth</td><td><span>02 September 1928</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "urn:dicom:pid",
+            "value": "SHC001"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "Subdural Hematoma on CT 1",
+            "family": "HEMATOMA",
+            "given": [
+              "ONE",
+              "CT"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1928-09-02"
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/C19002",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "C19002",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:43:08.522+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">TWO CT <b>COVID19 </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>C19002</td></tr><tr><td>Date of birth</td><td><span>05 January 1951</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "urn:dicom:pid",
+            "value": "C19002"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "COVID19 on CT 2",
+            "family": "COVID19",
+            "given": [
+              "TWO",
+              "CT"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1951-01-05"
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/PNC003",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "PNC003",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:43:08.576+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">CR NODULES <b>PULMONARY </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>PNC003</td></tr><tr><td>Date of birth</td><td><span>16 March 1882</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "urn:dicom:pid",
+            "value": "PNC003"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "Pulmonary Nodules on CR",
+            "family": "PULMONARY",
+            "given": [
+              "CR",
+              "NODULES"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1882-03-16"
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/C19001",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "C19001",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:43:08.636+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">ONE CT <b>COVID19 </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>C19001</td></tr><tr><td>Date of birth</td><td><span>05 February 1975</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "urn:dicom:pid",
+            "value": "C19001"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "COVID19 on CT 1",
+            "family": "COVID19",
+            "given": [
+              "ONE",
+              "CT"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1975-02-05"
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/PNC002",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "PNC002",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:43:08.692+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">TWO CT <b>NODULES </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>PNC002</td></tr><tr><td>Date of birth</td><td><span>28 December 1887</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "urn:dicom:pid",
+            "value": "PNC002"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "Pulmonary Nodules on CT 2",
+            "family": "NODULES",
+            "given": [
+              "TWO",
+              "CT"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1887-12-28"
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/SHC002",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "SHC002",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:43:08.758+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">TWO CT <b>HEMATOMA </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>SHC002</td></tr><tr><td>Date of birth</td><td><span>01 September 1966</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "urn:dicom:pid",
+            "value": "SHC002"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "Subdural Hematoma on CT 2",
+            "family": "HEMATOMA",
+            "given": [
+              "TWO",
+              "CT"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1966-09-01"
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/C19004",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "C19004",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:43:08.876+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">TWO CR <b>COVID19 </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>C19004</td></tr><tr><td>Date of birth</td><td><span>10 February 1931</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "urn:dicom:pid",
+            "value": "C19004"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "COVID19 on CR 2",
+            "family": "COVID19",
+            "given": [
+              "TWO",
+              "CR"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1931-02-10"
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/SHM001",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "SHM001",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:43:08.968+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">MR HEMATOMA <b>SUBDURAL </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>SHM001</td></tr><tr><td>Date of birth</td><td><span>01 January 1962</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "urn:dicom:pid",
+            "value": "SHM001"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "Subdural Hematoma on MR",
+            "family": "SUBDURAL",
+            "given": [
+              "MR",
+              "HEMATOMA"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1962-01-01"
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/PNC001",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "PNC001",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:43:09.054+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">ONE CT <b>NODULES </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>PNC001</td></tr><tr><td>Date of birth</td><td><span>29 August 1957</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "urn:dicom:pid",
+            "value": "PNC001"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "Pulmonary Nodules on CT 1",
+            "family": "NODULES",
+            "given": [
+              "ONE",
+              "CT"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1957-08-29"
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    },
+    {
+      "fullUrl": "http://hackathon.siim.org/fhir-overview/fhir/Patient/C19003",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "C19003",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-10-22T17:43:09.189+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">ONE CR <b>COVID19 </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>C19003</td></tr><tr><td>Date of birth</td><td><span>14 January 1972</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "urn:dicom:pid",
+            "value": "C19003"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "COVID19 on CR 1",
+            "family": "COVID19",
+            "given": [
+              "ONE",
+              "CR"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1972-01-14"
+      },
+      "search": {
+        "mode": "match"
+      },
+      "response": {
+        "status": "201 Created",
+        "etag": "W/\"1\""
+      }
+    }
+  ]
+}
