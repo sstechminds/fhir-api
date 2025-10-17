@@ -41,7 +41,7 @@ docker-push:
 # https://forge.etsi.org/rep/help/ci/docker/using_docker_build.md
   script:
     - DOCKER_REPO=registry.hub.docker.com
-    - IMG_NAME="${DOCKER_REPO}/sglanger/ewocs_fhir_api"
+    - IMG_NAME="${DOCKER_REPO}/rvangala/ewocs_fhir_api"
     - TAG=$CI_COMMIT_SHA
     - IMG_TAG=${IMG_NAME}:${TAG}
     - IMG_LATEST_TAG=${IMG_NAME}:latest

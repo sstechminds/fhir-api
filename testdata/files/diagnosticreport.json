@@ -6,7 +6,7 @@
   },
   "identifier": [ {
     "use": "usual",
-    "system": "http://flowsigma.com",
+    "system": "http://sstechminds.com",
     "value": "2012cec4-dd9f-416c-839e-f64a1016a688"
   } ],
   "basedOn": [
@@ -23,7 +23,7 @@
   } ],
   "code": {
     "coding": [ {
-      "system": "http://flowsigma.com",
+      "system": "http://sstechminds.com",
       "code": "24627-2"
     } ],
     "text": "CT Chest"
@@ -40,11 +40,11 @@
 
   "result": [ {
     "reference": "Observation/siimravi2observation",
-    "display": "FlowSIGMA DICOM analytic results"
+    "display": "SSTECHMINDS DICOM analytic results"
   } ],
   "imagingStudy": [ {
     "reference": "imageStudyRef",
-    "display": "FlowSIGMA DICOM image analytics"
+    "display": "SSTECHMINDS DICOM image analytics"
   } ],
   "conclusion": "conclusion"
 }

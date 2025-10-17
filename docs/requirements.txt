@@ -1,8 +1,3 @@
-
-steve langer via messagingengine.com
-Oct 16, 2020, 12:56 PM (5 days ago)
-to me, Christopher
-
 python FHIR client  https://github.com/smart-on-fhir/client-py
 
 Whether in Java or Python class, we need to be able to get at least;

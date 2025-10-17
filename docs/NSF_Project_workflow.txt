@@ -1,0 +1,20 @@
+title NSF--FHIR workflow \n copyright SSTECHMINDS 2025
+
+participant imgSource
+participant classifier
+participant workflow
+participant analytic
+participant FHIR
+participant EMR
+
+note over imgSource, analytic: new input processing
+imgSource->classifier: dcm3 input images
+classifier->classifier: figure out what this img is \n skip ones not needed
+classifier->workflow: msgQ this is our target series
+workflow->analytic: rest ? (can this be DICOMweb or ...) target series
+analytic->analytic: process output
+analytic->workflow: text using restAPI
+
+note over workflow, EMR: runs analytic and sends results
+FHIR->workflow: Get Patient Orders and analytic results and build DiagnosticReport
+workflow->EMR: ties analytic results to Patient order and send to EMR
