@@ -34,7 +34,7 @@ public class DiagnosticReportBuilder {
         List<Identifier> identifiers = new ArrayList<>();
         Identifier identifier = new Identifier();
         identifier.setUse(IdentifierUse.USUAL);
-        identifier.setSystem("http://flowsigma.com");
+        identifier.setSystem("http://sstechminds.com");
         identifier.setValue(UUID.randomUUID().toString());
         identifiers.add(identifier);
         dr.setIdentifier(identifiers);
@@ -55,7 +55,7 @@ public class DiagnosticReportBuilder {
         CodeableConcept cc = new CodeableConcept();
         List<Coding> theCoding = new ArrayList<>();
         Coding coding = new Coding();
-        coding.setSystem("http://flowsigma.com");
+        coding.setSystem("http://www.sstechminds.com");
         coding.setCode("24627-2");
         theCoding.add(coding);
         cc.setCoding(theCoding);
@@ -76,14 +76,14 @@ public class DiagnosticReportBuilder {
         List<Reference> imagingStudies = new ArrayList<>();
         Reference imageStudyRef = new Reference();
         imageStudyRef.setReference("imageStudyRef");
-        imageStudyRef.setDisplay("FlowSIGMA DICOM image analytics");
+        imageStudyRef.setDisplay("SSTECHMINDS DICOM image analytics");
         imagingStudies.add(imageStudyRef);
         dr.setImagingStudy(imagingStudies);
 
         List<Reference> results = new ArrayList<>();
         Reference resultRef = new Reference();
         resultRef.setReference("Observation/sample02ob03"); //TODO: Create Observation
-        resultRef.setDisplay("FlowSIGMA DICOM analytic results");
+        resultRef.setDisplay("SSTECHMINDS DICOM analytic results");
         results.add(resultRef);
         dr.setResult(results);
 
@@ -91,7 +91,7 @@ public class DiagnosticReportBuilder {
 //        List<Reference> specimens = new ArrayList<>();
 //        Reference specimenRef = new Reference();
 //        specimenRef.setReference("specimenRef");
-//        specimenRef.setDisplay("FlowSIGMA DICOM analytic specimen");
+//        specimenRef.setDisplay("SSTECHMINDS DICOM analytic specimen");
 //        specimens.add(specimenRef);
 //        dr.setSpecimen(specimens);
 

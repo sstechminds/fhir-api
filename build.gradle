@@ -23,7 +23,7 @@ plugins {
 	id 'com.diffplug.gradle.spotless' version '3.27.1'
 }
 
-group = 'com.flowsigma.ewocs'
+group = 'com.sstechminds.ewocs'
 version = '0.0.1-SNAPSHOT'
 
 sourceCompatibility = '1.8'
@@ -115,5 +115,5 @@ test {
 }
 
 bootJar {
-	mainClassName = 'com.flowsigma.ewocs.fhir.EwocsFhirApiApplication'
+	mainClassName = 'com.sstechminds.ewocs.fhir.EwocsFhirApiApplication'
 }

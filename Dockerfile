@@ -24,7 +24,7 @@ EXPOSE 8009
 
 # http://www.johnzaccone.io/entrypoint-vs-cmd-back-to-basics/
 #CMD ["exec java -Dspring.profiles.active=${SPRING_PROFILE} -Djava.security.egd=file:/dev/./urandom -jar $APP_FILE"]
-# docker build --tag flowsigma/fhirapi:latest .
-# docker run ---env SPRING_CONFIG_NAME=fhirapi -publish 8009:8009 --name fhirapi flowsigma/fhirapi:latest
+# docker build --tag sstechminds/fhirapi:latest .
+# docker run ---env SPRING_CONFIG_NAME=fhirapi -publish 8009:8009 --name fhirapi sstechminds/fhirapi:latest
 
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar $APP_FILE" ]

@@ -77,7 +77,7 @@ class PatientController {
 
 	@PostMapping(value = "/patient/{patientId}/diagnosticreport")
 	public ResponseEntity<Void> createDiagnosticReport(@PathVariable String patientId) {
-		String analyticResults = "FlowSIGMA workflow analytic results.";
+		String analyticResults = "SSTECHMINDS workflow analytic results.";
 		fhirPatientService.createDiagnosticReport(patientId, analyticResults);
 
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -96,7 +96,7 @@ class PatientController {
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> createDiagnosticReport(@RequestBody DiagnosticReportRequest request) {
     String response;
-	  String analyticResults = "FlowSIGMA workflow analytic results.";
+	  String analyticResults = "SSTECHMINDS workflow analytic results.";
 		if(StringUtils.isBlank(request.getFilePath())) {
       response  = fhirPatientService.createDiagnosticReport(request.getDicomTags(), analyticResults);
 		} else {

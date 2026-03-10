@@ -15,7 +15,7 @@ logging:
   level:
     root: INFO
     org.springframework.web: WARN
-    com.flowsigma: DEBUG
+    com.sstechminds: DEBUG
   pattern:
     console: "%d %-5level %logger : %msg%n"
     file: "%d %-5level [%thread] %logger : %msg%n"
