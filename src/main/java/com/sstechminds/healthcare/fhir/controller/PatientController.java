@@ -32,14 +32,10 @@ import org.springframework.web.bind.annotation.RestController;
 class PatientController {
 	final static Logger log = LoggerFactory.getLogger(PatientController.class);
 
-	private FhirPatientService fhirPatientService;
-	private ObjectMapper objectMapper;
-	private FhirContext fhirContext;
+	private final FhirPatientService fhirPatientService;
 
 	public PatientController(FhirPatientService fhirPatientService) {
 		this.fhirPatientService = fhirPatientService;
-		this.fhirContext = FhirContext.forR4();
-		this.objectMapper = new ObjectMapper();
 	}
 
 	@GetMapping(value = "/patient", produces = MediaType.APPLICATION_JSON_VALUE)
